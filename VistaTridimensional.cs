@@ -4,10 +4,8 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
-using System.Windows.Media.Media3D;
+using System.Windows.Input;
 
 namespace Graphote
 {
@@ -15,12 +13,11 @@ namespace Graphote
     {
         public Camara Camara { get; set; }
 
-        public VistaTridimensional(int Width, int Height) { 
-            this.Width = Width;
-            this.Height = Height;
-            this.Camara = new Camara(new Vector3(10, 10, 10));
+        public VistaTridimensional() { 
+            this.Width = 1421;
+            this.Height = 812;
+            this.Camara = new Camara(new Vector3(5, 5, 10));
         }
 
-        
     }
 }

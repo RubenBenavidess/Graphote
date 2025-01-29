@@ -14,7 +14,7 @@ namespace Graphote
 {
     internal class Renderizador
     {
-        private WriteableBitmap renderTarget;
+        public WriteableBitmap renderTarget { get; set; }
         private int[] pixelBuffer;
         private float[] zBuffer;
         private int Width, Height;
@@ -24,17 +24,6 @@ namespace Graphote
         {
             Width = (int)vista.Width;
             Height = (int)vista.Height;
-            InicializarBuffers();
-            MatrizProyeccion = ControladorPerspectiva.CreatePerspective(
-                MathHelper.ToRadians(45),
-                (float)Width / Height,
-                0.1f,
-                100f
-            );
-        }
-
-        private void InicializarBuffers()
-        {
             renderTarget = new WriteableBitmap(
                 Width,
                 Height,
@@ -45,6 +34,12 @@ namespace Graphote
             );
             pixelBuffer = new int[Width * Height];
             zBuffer = new float[Width * Height];
+            MatrizProyeccion = ControladorPerspectiva.CreatePerspective(
+                MathHelper.ToRadians(45),
+                (float)Width / Height,
+                0.1f,
+                100f
+            );
         }
 
         public void Renderizar(List<FiguraTridimensional> Figuras, Camara Camara)
@@ -72,7 +67,7 @@ namespace Graphote
                     Vector3 finProyectado = ProyectarVertice(fin, MatrizVista, MatrizProyeccion);
 
                     // Dibujar línea con z-buffer
-                    DibujarLinea(inicioProyectado, finProyectado, Figura.Color);
+                    DibujarLinea(inicioProyectado, finProyectado, Figura.Color.ToArgb());
                 }
             }
 
