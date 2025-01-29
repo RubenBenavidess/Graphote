@@ -9,7 +9,8 @@ namespace Graphote
 {
     internal class MatrizTransformacion
     {
-        private float[][] Matriz = new float[3][];
+        private float[][] Matriz = new float[4][];
+
         public MatrizTransformacion()
         {
             IniciarMatriz();
@@ -20,17 +21,17 @@ namespace Graphote
         // Iniciar Matriz
         private void IniciarMatriz()
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
-                Matriz[i] = new float[3];
+                Matriz[i] = new float[4];
             }
         }
 
         public void EncerarMatriz()
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
-                for (int j = 0; j < 3; j++)
+                for (int j = 0; j < 4; j++)
                 {
                     Matriz[i][j] = 0;
                 }
@@ -41,64 +42,88 @@ namespace Graphote
 
         // Transformaciones
 
-        public void MatrizTraslacion(float a, float b)
+        public void MatrizTraslacion(float distancia, char eje)
         {
             EncerarMatriz();
-
-            Matriz[0][2] = a;
-            Matriz[1][2] = b;
 
             Matriz[0][0] = 1;
             Matriz[1][1] = 1;
             Matriz[2][2] = 1;
+            Matriz[3][3] = 1;
+
+            switch (char.ToUpper(eje))
+            {
+                case 'X': Matriz[0][3] = distancia; break;
+                case 'Y': Matriz[1][3] = distancia; break;
+                case 'Z': Matriz[2][3] = distancia; break;
+            }
         }
 
-        public void MatrizEscalado(float kx, float ky)
+        public void MatrizEscalado(float escala)
         {
             EncerarMatriz();
 
-            Matriz[0][0] = kx;
-            Matriz[1][1] = ky;
-            Matriz[2][2] = 1;
+            Matriz[0][0] = escala;
+            Matriz[1][1] = escala;
+            Matriz[2][2] = escala;
+            Matriz[3][3] = 1;
         }
 
-        public void MatrizRotacion(float angulo)
+        public void MatrizRotacion(float angulo, char eje)
         {
             EncerarMatriz();
+            float rad = (float)(angulo * Math.PI / 180.0);
 
-            Matriz[0][0] = (float)Math.Cos(angulo);
-            Matriz[0][1] = (float)(-1 * Math.Sin(angulo));
-            Matriz[1][0] = (float)Math.Sin(angulo);
-            Matriz[1][1] = (float)(1 * Math.Cos(angulo));
-            Matriz[2][2] = 1;
+            Matriz[3][3] = 1;
+
+            switch (char.ToUpper(eje))
+            {
+                case 'X':
+                    Matriz[0][0] = 1;
+                    Matriz[1][1] = (float)Math.Cos(rad);
+                    Matriz[1][2] = (float)-Math.Sin(rad);
+                    Matriz[2][1] = (float)Math.Sin(rad);
+                    Matriz[2][2] = (float)Math.Cos(rad);
+                    break;
+                case 'Y':
+                    Matriz[0][0] = (float)Math.Cos(rad);
+                    Matriz[0][2] = (float)Math.Sin(rad);
+                    Matriz[1][1] = 1;
+                    Matriz[2][0] = (float)-Math.Sin(rad);
+                    Matriz[2][2] = (float)Math.Cos(rad);
+                    break;
+                case 'Z':
+                    Matriz[0][0] = (float)Math.Cos(rad);
+                    Matriz[0][1] = (float)-Math.Sin(rad);
+                    Matriz[1][0] = (float)Math.Sin(rad);
+                    Matriz[1][1] = (float)Math.Cos(rad);
+                    Matriz[2][2] = 1;
+                    break;
+            }
         }
 
         //----------------------------------------------------------------
 
-        // Producir el vector
-
+        // Aplicar transformación a un vector 3D (con coordenadas homogéneas)
         public float[] Transformar(float[] vector)
         {
-            float[] Vector = new float[3];
-            float Resultado;
+            if (vector.Length != 3)
+                throw new ArgumentException("El vector debe tener 3 componentes (x, y, z)");
 
-            for (int i = 0; i < 3; i++)
+            float[] VectorTransformado = new float[4];
+            float[] VectorHomogeneo = { vector[0], vector[1], vector[2], 1 };
+
+            for (int i = 0; i < 4; i++)
             {
-
-                Resultado = 0;
-
-                for (int j = 0; j < 3; j++)
+                float resultado = 0;
+                for (int j = 0; j < 4; j++)
                 {
-                    Resultado += Matriz[i][j] * vector[j];
-
+                    resultado += Matriz[i][j] * VectorHomogeneo[j];
                 }
-                Vector[i] = Resultado;
+                VectorTransformado[i] = resultado;
             }
 
-            return Vector;
-
+            return new float[] { VectorTransformado[0], VectorTransformado[1], VectorTransformado[2] };
         }
-
-
     }
 }
