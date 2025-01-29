@@ -51,7 +51,7 @@ namespace Graphote
             Matrix4x4 MatrizVista = ControladorPerspectiva.CreateLookAt(
                 Camara.Posicion, 
                 Vector3.Zero, 
-                Vector3.Zero
+                Vector3.One
                 );
 
             // Renderizar cada figura
