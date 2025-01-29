@@ -71,8 +71,34 @@ namespace Graphote
                 }
             }
 
+
+
             // Copiar pixelBuffer al WriteableBitmap
             ActualizarRenderTarget();
+        }
+
+        private void DibujarEjes(int LongitudEje, Matrix4x4 MatrizVista)
+        {
+            // Eje X (Rojo)
+            Vector3 ejeXInicio = Vector3.Zero;
+            Vector3 ejeXFin = new Vector3(LongitudEje, 0, 0);
+            Vector3 ejeXInicioProyectado = ProyectarVertice(ejeXInicio, MatrizVista, MatrizProyeccion);
+            Vector3 ejeXFinProyectado = ProyectarVertice(ejeXFin, MatrizVista, MatrizProyeccion);
+            DibujarLinea(ejeXInicioProyectado, ejeXFinProyectado, unchecked((int)0xFF8E1919)); // ARGB: Rojo
+
+            // Eje Y (Verde)
+            Vector3 ejeYInicio = Vector3.Zero;
+            Vector3 ejeYFin = new Vector3(0, LongitudEje, 0);
+            Vector3 ejeYInicioProyectado = ProyectarVertice(ejeYInicio, MatrizVista, MatrizProyeccion);
+            Vector3 ejeYFinProyectado = ProyectarVertice(ejeYFin, MatrizVista, MatrizProyeccion);
+            DibujarLinea(ejeYInicioProyectado, ejeYFinProyectado, unchecked((int)0xFF1B8E19)); // ARGB: Verde
+
+            // Eje Z (Azul)
+            Vector3 ejeZInicio = Vector3.Zero;
+            Vector3 ejeZFin = new Vector3(0, 0, LongitudEje);
+            Vector3 ejeZInicioProyectado = ProyectarVertice(ejeZInicio, MatrizVista, MatrizProyeccion);
+            Vector3 ejeZFinProyectado = ProyectarVertice(ejeZFin, MatrizVista, MatrizProyeccion);
+            DibujarLinea(ejeZInicioProyectado, ejeZFinProyectado, unchecked((int)0xFF19398E)); // ARGB: Azul
         }
 
         private Vector3 ProyectarVertice(Vector3 vertice, Matrix4x4 vista, Matrix4x4 proyeccion)
