@@ -32,7 +32,8 @@ namespace Graphote
 
       private void lbl_seleccionar_reiniciar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
       {
-
+        Figuras.Clear();
+      
       }
 
       private void lbl_seleccionar_salir_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -78,10 +79,45 @@ namespace Graphote
       private void pic_canvas_MouseDown(object sender, MouseButtonEventArgs e)
       {
         Renderizador render = new Renderizador(pic_canvas);
-        FiguraTridimensional cubo = FabricaFiguras.CrearCubo();
-        Figuras.Add(cubo);
         render.Renderizar(Figuras, pic_canvas.Camara);
         image_3D.Source = render.renderTarget;
       }
+
+    private void opcion_cilindro_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+      //FiguraTridimensional cilindro= FabricaFiguras.CrearCilindro();
+      //Figuras.Add(cilindro);
+      grid_figuras.Visibility = Visibility.Hidden;
+    }
+
+    private void opcion_piramide_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+      FiguraTridimensional piramide = FabricaFiguras.CrearPiramide();
+      Figuras.Add(piramide);
+      grid_figuras.Visibility = Visibility.Hidden;
+    }
+
+    private void opcion_cubo_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+      FiguraTridimensional cubo = FabricaFiguras.CrearCubo();
+      Figuras.Add(cubo);
+      grid_figuras.Visibility = Visibility.Hidden;
+    }
+
+    private void opcion_esfera_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+      //FiguraTridimensional esfera = FabricaFiguras.CrearEsfera();
+      //Figuras.Add(esfera);
+      grid_figuras.Visibility = Visibility.Hidden;
+
+    }
+
+    private void lbl_añadir_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+      if(grid_figuras.Visibility == Visibility.Visible)
+        grid_figuras.Visibility = Visibility.Hidden;
+      else
+        grid_figuras.Visibility = Visibility.Visible;
+    }
   }
 }
