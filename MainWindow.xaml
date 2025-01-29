@@ -4,32 +4,30 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Graphote"
-        mc:Ignorable="d" Width="1920" Height="1002" Left="0" Top="0" WindowState="Maximized" Background="#FF778DA9">
-    <Grid x:Name="gridMain" HorizontalAlignment="Center" Height="997" VerticalAlignment="Center" Width="1914" Background="#FF1B263B">
+        mc:Ignorable="d" Width="1900" Height="984.3" Left="0" Top="0" Background="#FF778DA9" MaxWidth="1900" MaxHeight="984" WindowState="Maximized" Title="Graphote">
+    <Grid x:Name="gridMain" HorizontalAlignment="Center" Height="896" VerticalAlignment="Center" Width="1732" Background="#FF1B263B">
         <Grid.RowDefinitions>
             <RowDefinition Height="780*"/>
             <RowDefinition Height="217*"/>
         </Grid.RowDefinitions>
-        <Border x:Name="borderImage" BorderBrush="#FFFCEDED" BorderThickness="1,1,1,1" HorizontalAlignment="Left" Height="854" Margin="37,32,0,0" VerticalAlignment="Top" Width="1501" CornerRadius="7,7,7,7" Grid.RowSpan="2">
+        <Border x:Name="borderImage" BorderBrush="#FFFCEDED" BorderThickness="1,1,1,1" HorizontalAlignment="Left" Height="812" Margin="37,32,0,0" VerticalAlignment="Top" Width="1421" CornerRadius="7,7,7,7" Grid.RowSpan="2">
             <Canvas x:Name="Pic_canvas" Background="#FF080F16" Margin="1,1,1,1">
-                <Label x:Name="lblCordenadas" Content="Coordenadas" Canvas.Left="6" Canvas.Top="805" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontSize="9"/>
-                <Label x:Name="lbl_coordenadaX" Content="" Canvas.Left="12" Canvas.Top="824" Foreground="White" FontSize="9" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Label x:Name="lbl_coordenadaY" Content="" Canvas.Left="56" Canvas.Top="824" Foreground="White" FontSize="9" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Label x:Name="lbl_coordenadaZ" Content="" Canvas.Left="100" Canvas.Top="824" Foreground="White" FontSize="9" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label x:Name="lblCordenadas" Content="Coordenadas" Canvas.Left="6" Canvas.Top="766" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontSize="9"/>
+                <Label x:Name="lbl_coordenadaX" Content="" Canvas.Left="12" Canvas.Top="785" Foreground="White" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <Label x:Name="lbl_coordenadaY" Content="" Canvas.Left="56" Canvas.Top="785" Foreground="White" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <Label x:Name="lbl_coordenadaZ" Content="" Canvas.Left="100" Canvas.Top="785" Foreground="White" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             </Canvas>
         </Border>
-        <Label x:Name="lblTitle" Content="Graphote" HorizontalAlignment="Left" Margin="0,-4,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Label x:Name="lbl_seleccionar" Content="Seleccionar" HorizontalAlignment="Left" Margin="58,4,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Label x:Name="lbl_seleccionar_reiniciar" Content="Reiniciar" HorizontalAlignment="Left" Margin="135,4,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Label x:Name="lbl_seleccionar_salir" Content="Salir" HorizontalAlignment="Left" Margin="202,4,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Slider x:Name="slider_escala" HorizontalAlignment="Left" Margin="54,143,0,0" VerticalAlignment="Top" Width="1463" Maximum="2" TickFrequency="0.01" SmallChange="0.01" ValueChanged="Slider_ValueChanged" Value="1" Grid.Row="1"/>
-        <Label x:Name="lblEscala" Content="Escala" HorizontalAlignment="Left" Margin="58,118,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="1"/>
-        <Grid x:Name="grid_foco" HorizontalAlignment="Left" Height="252" Margin="1582,15,0,0" VerticalAlignment="Top" Width="317" Background="#FF1E2127">
+        <Label x:Name="lbl_seleccionar" Content="Seleccionar" HorizontalAlignment="Left" Margin="37,4,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label x:Name="lbl_seleccionar_reiniciar" Content="Reiniciar" HorizontalAlignment="Left" Margin="114,4,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label x:Name="lbl_seleccionar_salir" Content="Salir" HorizontalAlignment="Left" Margin="181,4,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Slider x:Name="slider_escala" HorizontalAlignment="Left" Margin="54,172,0,0" VerticalAlignment="Top" Width="1404" Maximum="2" TickFrequency="0.01" SmallChange="0.01" ValueChanged="Slider_ValueChanged" Value="1" Grid.Row="1"/>
+        <Label x:Name="lblEscala" Content="Escala" HorizontalAlignment="Left" Margin="58,147,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="1"/>
+        <Grid x:Name="grid_foco" HorizontalAlignment="Left" Height="210" Margin="1480,105,0,0" VerticalAlignment="Top" Width="235" Background="#FF1E2127">
             <Ellipse x:Name="btn_focusZ" HorizontalAlignment="Center" Height="50" Margin="0,25,0,0" VerticalAlignment="Top" Width="50" Fill="#FF19398E" Cursor="Hand"/>
-            <Border BorderBrush="#FF151719" BorderThickness="1" CornerRadius="3,3,3,3" Panel.ZIndex="-1" RenderTransformOrigin="0.428,0.407" Cursor="Hand"/>
-            <Ellipse x:Name="btn_focusX" HorizontalAlignment="Left" Height="50" Margin="68,117,0,0" VerticalAlignment="Top" Width="50" Fill="#FF8E1919" Cursor="Hand"/>
-            <Ellipse x:Name="btn_focusY" HorizontalAlignment="Left" Height="50" Margin="194,142,0,0" VerticalAlignment="Top" Width="50" Fill="#FF1B8E19" Cursor="Hand"/>
-            <Rectangle HorizontalAlignment="Left" Height="2" Margin="105,116,0,0" Stroke="White" VerticalAlignment="Top" Width="58" Fill="White" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="-1">
+            <Ellipse x:Name="btn_focusX" HorizontalAlignment="Left" Height="50" Margin="25,120,0,0" VerticalAlignment="Top" Width="50" Fill="#FF8E1919" Cursor="Hand"/>
+            <Ellipse x:Name="btn_focusY" HorizontalAlignment="Left" Height="50" Margin="155,142,0,0" VerticalAlignment="Top" Width="50" Fill="#FF1B8E19" Cursor="Hand"/>
+            <Rectangle HorizontalAlignment="Left" Height="2" Margin="64,116,0,0" Stroke="White" VerticalAlignment="Top" Width="58" Fill="White" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="-1">
                 <Rectangle.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -39,7 +37,7 @@
                     </TransformGroup>
                 </Rectangle.RenderTransform>
             </Rectangle>
-            <Rectangle HorizontalAlignment="Left" Height="2" Margin="147,127,0,0" Stroke="White" VerticalAlignment="Top" Width="76" Fill="White" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="-1">
+            <Rectangle HorizontalAlignment="Left" Height="2" Margin="106,127,0,0" Stroke="White" VerticalAlignment="Top" Width="76" Fill="White" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="-1">
                 <Rectangle.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -60,29 +58,43 @@
                 </Rectangle.RenderTransform>
             </Rectangle>
             <Label x:Name="lbl_focusZ" Content="Z" HorizontalAlignment="Center" Margin="0,36,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold" Cursor="Hand"/>
-            <Label x:Name="lbl_focusX" Content="X" HorizontalAlignment="Left" Margin="80,128,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold" Cursor="Hand"/>
-            <Label x:Name="lbl_focusY" Content="Y" HorizontalAlignment="Left" Margin="210,153,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold" Cursor="Hand"/>
+            <Label x:Name="lbl_focusX" Content="X" HorizontalAlignment="Left" Margin="41,131,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold" Cursor="Hand"/>
+            <Label x:Name="lbl_focusY" Content="Y" HorizontalAlignment="Left" Margin="171,153,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold" Cursor="Hand" RenderTransformOrigin="0.505,0.517"/>
         </Grid>
-        <Grid HorizontalAlignment="Left" Height="577" Margin="1582,309,0,0" VerticalAlignment="Top" Width="317" Grid.RowSpan="2">
+        <Grid HorizontalAlignment="Left" Height="425" Margin="1480,373,0,0" VerticalAlignment="Top" Width="235" Grid.RowSpan="2">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black"/>
                     <GradientStop Color="#FF1E2127"/>
                 </LinearGradientBrush>
             </Grid.Background>
-            <Border BorderBrush="#FF151719" BorderThickness="1" CornerRadius="3,3,3,3" Panel.ZIndex="-1"/>
+            <Slider x:Name="slider_rotarX" HorizontalAlignment="Left" Margin="53,127,0,0" VerticalAlignment="Top" Width="171" Maximum="180" Minimum="-180"/>
+            <Slider x:Name="slider_rotarY" HorizontalAlignment="Left" Margin="53,183,0,0" VerticalAlignment="Top" Width="171" Maximum="180" Minimum="-180"/>
+            <Slider x:Name="slider_rotarZ" HorizontalAlignment="Left" Margin="53,239,0,0" VerticalAlignment="Top" Width="171" Maximum="180" Minimum="-180"/>
+            <Label x:Name="lbl_valor_rotarZ" Content="0" HorizontalAlignment="Left" Margin="131,259,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White"/>
+            <Label x:Name="lbl_valor_rotarY" Content="0" HorizontalAlignment="Left" Margin="131,203,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White"/>
+            <Label x:Name="lbl_valor_rotarX1" Content="0" HorizontalAlignment="Left" Margin="131,147,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White"/>
+            <Label Content="-180°" HorizontalAlignment="Left" Margin="41,101,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White"/>
+            <Label Content="180°" HorizontalAlignment="Left" Margin="196,102,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White"/>
+            <Label Content="Trasladar" HorizontalAlignment="Left" Margin="10,309,0,0" VerticalAlignment="Top" Foreground="White"/>
+            <TextBox x:Name="txt_trasladarX" HorizontalAlignment="Left" Margin="10,366,0,0" TextWrapping="Wrap" Text="0.00" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="txt_trasladarY" HorizontalAlignment="Left" Margin="80,366,0,0" TextWrapping="Wrap" Text="0.00" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="txt_trasladarZ" HorizontalAlignment="Left" Margin="150,366,0,0" TextWrapping="Wrap" Text="0.00" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="txt_tituloX" HorizontalAlignment="Left" Margin="10,341,0,0" TextWrapping="Wrap" Text="X" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FF0D1B2A" Foreground="White"/>
+            <TextBox x:Name="txt_tituloY" HorizontalAlignment="Left" Margin="80,341,0,0" TextWrapping="Wrap" Text="Y" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF0D1B2A"/>
+            <TextBox x:Name="txt_tituloZ" HorizontalAlignment="Left" Margin="150,341,0,0" TextWrapping="Wrap" Text="Z" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FF0D1B2A" Foreground="White"/>
         </Grid>
-        <Label x:Name="lbl_figura" Content="Figura" HorizontalAlignment="Left" Margin="1596,320,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="13"/>
-        <Label x:Name="lbl_figura_Copiar" Content="Transformaciones" HorizontalAlignment="Left" Margin="1596,369,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="13"/>
-        <Label x:Name="lbl_figura_Copiar1" Content="Rotar" HorizontalAlignment="Left" Margin="1596,410,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Border BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="1582,440,0,0" VerticalAlignment="Top" Width="48" Background="#FF151F28" CornerRadius="0,3,3,0" Tag="">
-            <Label Content="X" Margin="15,0,9,0" Foreground="White" FontSize="16"/>
+        <Label x:Name="lbl_figura" Content="Figura" HorizontalAlignment="Left" Margin="1489,385,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="13"/>
+        <Label x:Name="lbl_figura_Copiar" Content="Transformaciones" HorizontalAlignment="Left" Margin="1489,417,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontSize="13"/>
+        <Label x:Name="lbl_figura_Copiar1" Content="Rotar" HorizontalAlignment="Left" Margin="1489,454,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Border BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="1479,495,0,0" VerticalAlignment="Top" Width="48" Background="#FF151F28" CornerRadius="0,3,3,0" Tag="">
+            <Label Content="X" Margin="12,-2,12,2" Foreground="White" FontSize="16"/>
         </Border>
-        <Border BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="1582,475,0,0" VerticalAlignment="Top" Width="48" Background="#FF151F28" CornerRadius="0,3,3,0" Tag="">
-            <Label Content="X" Margin="15,0,9,0" Foreground="White" FontSize="16"/>
+        <Border BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="1479,550,0,0" VerticalAlignment="Top" Width="48" Background="#FF151F28" CornerRadius="0,3,3,0" Tag="">
+            <Label Content="Y" Margin="12,-2,12,2" Foreground="White" FontSize="16"/>
         </Border>
-        <Border BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="1582,510,0,0" VerticalAlignment="Top" Width="48" Background="#FF151F28" CornerRadius="0,3,3,0" Tag="">
-            <Label Content="X" Margin="15,-2,9,2" Foreground="White" FontSize="16"/>
+        <Border BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="1479,607,0,0" VerticalAlignment="Top" Width="48" Background="#FF151F28" CornerRadius="0,3,3,0" Tag="">
+            <Label Content="Z" Margin="12,-2,12,2" Foreground="White" FontSize="16"/>
         </Border>
     </Grid>
 </Window>
