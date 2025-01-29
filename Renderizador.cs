@@ -71,7 +71,7 @@ namespace Graphote
                 }
             }
 
-
+            DibujarEjes(5, MatrizVista);
 
             // Copiar pixelBuffer al WriteableBitmap
             ActualizarRenderTarget();
@@ -85,6 +85,10 @@ namespace Graphote
             Vector3 ejeXInicioProyectado = ProyectarVertice(ejeXInicio, MatrizVista, MatrizProyeccion);
             Vector3 ejeXFinProyectado = ProyectarVertice(ejeXFin, MatrizVista, MatrizProyeccion);
             DibujarLinea(ejeXInicioProyectado, ejeXFinProyectado, unchecked((int)0xFF8E1919)); // ARGB: Rojo
+            ejeXFin = new Vector3(-LongitudEje, 0, 0);
+            ejeXInicioProyectado = ProyectarVertice(ejeXInicio, MatrizVista, MatrizProyeccion);
+            ejeXFinProyectado = ProyectarVertice(ejeXFin, MatrizVista, MatrizProyeccion);
+            DibujarLinea(ejeXInicioProyectado, ejeXFinProyectado, unchecked((int)0xFF8E1919)); // ARGB: Rojo
 
             // Eje Y (Verde)
             Vector3 ejeYInicio = Vector3.Zero;
@@ -92,12 +96,20 @@ namespace Graphote
             Vector3 ejeYInicioProyectado = ProyectarVertice(ejeYInicio, MatrizVista, MatrizProyeccion);
             Vector3 ejeYFinProyectado = ProyectarVertice(ejeYFin, MatrizVista, MatrizProyeccion);
             DibujarLinea(ejeYInicioProyectado, ejeYFinProyectado, unchecked((int)0xFF1B8E19)); // ARGB: Verde
+            ejeYFin = new Vector3(0, -LongitudEje, 0);
+            ejeYInicioProyectado = ProyectarVertice(ejeYInicio, MatrizVista, MatrizProyeccion);
+            ejeYFinProyectado = ProyectarVertice(ejeYFin, MatrizVista, MatrizProyeccion);
+            DibujarLinea(ejeYInicioProyectado, ejeYFinProyectado, unchecked((int)0xFF1B8E19)); // ARGB: Verde
 
             // Eje Z (Azul)
             Vector3 ejeZInicio = Vector3.Zero;
             Vector3 ejeZFin = new Vector3(0, 0, LongitudEje);
             Vector3 ejeZInicioProyectado = ProyectarVertice(ejeZInicio, MatrizVista, MatrizProyeccion);
             Vector3 ejeZFinProyectado = ProyectarVertice(ejeZFin, MatrizVista, MatrizProyeccion);
+            DibujarLinea(ejeZInicioProyectado, ejeZFinProyectado, unchecked((int)0xFF19398E)); // ARGB: Azul
+            ejeZFin = new Vector3(0, 0, -LongitudEje);
+            ejeZInicioProyectado = ProyectarVertice(ejeZInicio, MatrizVista, MatrizProyeccion);
+            ejeZFinProyectado = ProyectarVertice(ejeZFin, MatrizVista, MatrizProyeccion);
             DibujarLinea(ejeZInicioProyectado, ejeZFinProyectado, unchecked((int)0xFF19398E)); // ARGB: Azul
         }
 

@@ -80,6 +80,8 @@ namespace Graphote
         Renderizador render = new Renderizador(pic_canvas);
         FiguraTridimensional cubo = FabricaFiguras.CrearCubo();
         Figuras.Add(cubo);
+        FiguraTridimensional pir = FabricaFiguras.CrearPiramide();
+        Figuras.Add(pir);
         render.Renderizar(Figuras, pic_canvas.Camara);
         image_3D.Source = render.renderTarget;
       }

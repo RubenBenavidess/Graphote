@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Graphote"
-        mc:Ignorable="d" Width="1900" Height="984.3" Left="0" Top="0" Background="#FF778DA9" MaxWidth="1900" MaxHeight="984" WindowState="Maximized" Title="Graphote">
-    <Grid x:Name="gridMain" HorizontalAlignment="Center" Height="896" VerticalAlignment="Center" Width="1732" Background="#FF1B263B">
+        mc:Ignorable="d" Width="1900" Height="984.3" Left="0" Top="0" Background="#FF778DA9" MaxWidth="1900" MaxHeight="984" Title="Graphote" ResizeMode="NoResize">
+    <Grid x:Name="gridMain" HorizontalAlignment="Center" Height="948" VerticalAlignment="Center" Width="1900" Background="#FF1B263B">
         <Grid.RowDefinitions>
             <RowDefinition Height="780*"/>
             <RowDefinition Height="217*"/>

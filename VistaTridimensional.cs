@@ -16,9 +16,8 @@ namespace Graphote
         public VistaTridimensional() { 
             this.Width = 1421;
             this.Height = 812;
-            this.Camara = new Camara(new Vector3(5, 12, 20));
+            this.Camara = new Camara(new Vector3(5, 6, -7));
         }
-
 
     }
 }
