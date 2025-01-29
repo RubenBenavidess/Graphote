@@ -70,7 +70,7 @@ namespace Graphote
 
         public static FiguraTridimensional CrearCilindro()
         {
-            int segmentos = 10;
+            int segmentos = 30;
             float radio = 0.5f;
             Vector3[] Vertices = new Vector3[segmentos * 2];
 
@@ -104,8 +104,8 @@ namespace Graphote
 
         public static FiguraTridimensional CrearEsfera()
         {
-            int subdivisiones = 5;
-            float radio = 0.5f;
+            int subdivisiones = 10;
+            float radio = 1.0f;
 
             // Crear los 12 vértices base del icosaedro
             float t = (float)((1.0 + Math.Sqrt(5.0)) / 2.0); // Número áureo
