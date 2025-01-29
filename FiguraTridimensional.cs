@@ -10,7 +10,7 @@ namespace Graphote
 {
     internal class FiguraTridimensional
     {
-        private int Id;
+        public int Id { get; set;  }
         private MatrizTransformacion Matriz = new MatrizTransformacion();
         public Vector3[] Vertices { get; set; }
         public (int, int)[] Aristas { get; set; }
@@ -25,9 +25,9 @@ namespace Graphote
         }
 
 
-        public void Trasladar(float a, float b)
+        public void Trasladar(float distancia, char eje)
         {
-            Matriz.MatrizTraslacion(a, b);
+            Matriz.MatrizTraslacion(distancia, eje);
             float[] VectorAuxiliar = new float[3] {0, 0, 0};
             float[] VectorResultante = new float[3] { 0, 0, 0 };
             for (int i = 0; i < Vertices.Length; i++)
@@ -37,9 +37,9 @@ namespace Graphote
                 Vertices[i] = new Vector3(VectorResultante[0], VectorResultante[1], VectorResultante[2]);
             }
         }
-        public void Rotar(float angulo)
+        public void Rotar(float angulo, char eje)
         {
-            Matriz.MatrizRotacion(angulo);
+            Matriz.MatrizRotacion(angulo, eje);
             float[] VectorAuxiliar = new float[3] { 0, 0, 0 };
             float[] VectorResultante = new float[3] { 0, 0, 0 };
             for (int i = 0; i < Vertices.Length; i++)
@@ -50,9 +50,9 @@ namespace Graphote
             }
         }
 
-        public void Escakar(float kx, float ky)
+        public void Escalar(float escala)
         {
-            Matriz.MatrizEscalado(kx, ky);
+            Matriz.MatrizEscalado(escala);
             float[] VectorAuxiliar = new float[3] { 0, 0, 0 };
             float[] VectorResultante = new float[3] { 0, 0, 0 };
             for (int i = 0; i < Vertices.Length; i++)
