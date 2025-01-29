@@ -11,12 +11,12 @@
             <RowDefinition Height="217*"/>
         </Grid.RowDefinitions>
         <Border x:Name="borderImage" BorderBrush="#FFFCEDED" BorderThickness="1,1,1,1" HorizontalAlignment="Left" Height="812" Margin="37,32,0,0" VerticalAlignment="Top" Width="1421" CornerRadius="7,7,7,7" Grid.RowSpan="2">
-            <Canvas x:Name="Pic_canvas" Background="#FF080F16" Margin="1,1,1,1">
-                <Label x:Name="lblCordenadas" Content="Coordenadas" Canvas.Left="6" Canvas.Top="766" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontSize="9"/>
-                <Label x:Name="lbl_coordenadaX" Content="" Canvas.Left="12" Canvas.Top="785" Foreground="White" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <Label x:Name="lbl_coordenadaY" Content="" Canvas.Left="56" Canvas.Top="785" Foreground="White" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <Label x:Name="lbl_coordenadaZ" Content="" Canvas.Left="100" Canvas.Top="785" Foreground="White" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            </Canvas>
+            <local:VistaTridimensional x:Name="pic_canvas" Margin="0,0,-2,-2" MouseDown="pic_canvas_MouseDown">
+                <local:VistaTridimensional.Background>
+                    <ImageBrush ImageSource="{Binding ElementName=image_3D, Mode=OneWay}"/>
+                </local:VistaTridimensional.Background>
+                <Image x:Name="image_3D" Height="810" Width="1406" HorizontalAlignment="Left" Canvas.Top="1" VerticalAlignment="Top"/>
+            </local:VistaTridimensional>
         </Border>
         <Label x:Name="lbl_seleccionar" Content="Seleccionar" HorizontalAlignment="Left" Margin="37,4,0,0" VerticalAlignment="Top" Foreground="White" MouseLeftButtonDown="lbl_seleccionar_MouseLeftButtonDown" Cursor="Hand"/>
         <Label x:Name="lbl_seleccionar_reiniciar" Content="Reiniciar" HorizontalAlignment="Left" Margin="114,4,0,0" VerticalAlignment="Top" Foreground="White" MouseLeftButtonDown="lbl_seleccionar_reiniciar_MouseLeftButtonDown" Cursor="Hand"/>
@@ -61,7 +61,7 @@
             <Label x:Name="lbl_focusX" Content="X" HorizontalAlignment="Left" Margin="41,131,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold" Cursor="Hand"/>
             <Label x:Name="lbl_focusY" Content="Y" HorizontalAlignment="Left" Margin="171,153,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold" Cursor="Hand" RenderTransformOrigin="0.505,0.517"/>
         </Grid>
-        <Grid x:Name="grid_transofrmaciones" HorizontalAlignment="Left" Height="425" Margin="1480,373,0,0" VerticalAlignment="Top" Width="235" Grid.RowSpan="2" Visibility="Hidden">
+        <Grid x:Name="grid_transofrmaciones" HorizontalAlignment="Left" Height="425" Margin="1480,373,0,0" VerticalAlignment="Top" Width="235" Grid.RowSpan="2" Visibility="Visible">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black"/>
