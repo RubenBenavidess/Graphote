@@ -68,5 +68,39 @@ namespace Graphote
 
         }
 
+        public static FiguraTridimensional CrearCilindro()
+        {
+            int segmentos = 10;
+            float radio = 0.5f;
+            Vector3[] Vertices = new Vector3[segmentos * 2];
+
+            // Generar los vértices
+            for (int i = 0; i < segmentos; i++)
+            {
+                float angulo = (float)(i * Math.PI * 2 / segmentos);
+                float x = radio * (float)Math.Cos(angulo);
+                float y = radio * (float)Math.Sin(angulo);
+
+                Vertices[i * 2] = new Vector3(x, y, -0.5f); // Base inferior
+                Vertices[i * 2 + 1] = new Vector3(x, y, 0.5f);  // Base superior
+            }
+
+            // Generar las aristas
+            (int, int)[] Aristas = new (int, int)[segmentos * 3];
+
+            for (int i = 0; i < segmentos; i++)
+            {
+                int next = (i + 1) % segmentos;
+
+                Aristas[i * 3] = (i * 2, next * 2);          // Base inferior
+                Aristas[i * 3 + 1] = (i * 2 + 1, next * 2 + 1); // Base superior
+                Aristas[i * 3 + 2] = (i * 2, i * 2 + 1);     // Conexión entre bases
+            }
+
+            Color Color = Color.White;
+
+            return new FiguraTridimensional(Id, Vertices, Aristas, Color);
+        }
+
     }
 }

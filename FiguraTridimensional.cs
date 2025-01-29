@@ -10,7 +10,7 @@ namespace Graphote
 {
     internal class FiguraTridimensional
     {
-        private int Id;
+        public int Id { get; set;  }
         private MatrizTransformacion Matriz = new MatrizTransformacion();
         public Vector3[] Vertices { get; set; }
         public (int, int)[] Aristas { get; set; }
