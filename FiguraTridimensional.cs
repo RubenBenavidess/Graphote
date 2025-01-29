@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -18,7 +18,10 @@ namespace Graphote
 
         public FiguraTridimensional(int id, Vector3[] vertices, (int, int)[] aristas, Color color)
         {
-
+          this.Id = id;
+          this.Vertices = vertices;
+          this.Color = color;
+          this.Aristas = aristas;
         }
 
 
