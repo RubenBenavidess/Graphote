@@ -12,7 +12,7 @@ namespace Graphote
     {
         private int Id;
         private MatrizTransformacion Matriz = new MatrizTransformacion();
-        private Vector3[] Vertices;
+        public Vector3[] Vertices { get; set; }
         public List<(int, int)> Aristas { get; set; }
         private List<Cara> Caras;
         public Color Color { get; set; }

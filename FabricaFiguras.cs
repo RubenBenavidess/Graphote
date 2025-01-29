@@ -8,5 +8,11 @@ namespace Graphote
 {
     internal class FabricaFiguras
     {
+
+        public static FiguraTridimensional CrearCubo()
+        {
+
+        }
+
     }
 }
