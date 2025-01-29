@@ -57,9 +57,9 @@
           </TransformGroup>
         </Rectangle.RenderTransform>
       </Rectangle>
-      <Label x:Name="lbl_focusZ" Content="Z" HorizontalAlignment="Center" Margin="0,36,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold" Cursor="Hand"/>
-      <Label x:Name="lbl_focusX" Content="X" HorizontalAlignment="Left" Margin="41,131,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold" Cursor="Hand"/>
-      <Label x:Name="lbl_focusY" Content="Y" HorizontalAlignment="Left" Margin="171,153,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold" Cursor="Hand" RenderTransformOrigin="0.505,0.517"/>
+      <Label x:Name="lbl_focusZ" Content="Z" HorizontalAlignment="Center" Margin="0,36,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold" Cursor="Hand" MouseLeftButtonDown="btn_focusZ_MouseLeftButtonDown"/>
+      <Label x:Name="lbl_focusX" Content="X" HorizontalAlignment="Left" Margin="41,131,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold" Cursor="Hand" MouseLeftButtonDown="btn_focusX_MouseLeftButtonDown"/>
+      <Label x:Name="lbl_focusY" Content="Y" HorizontalAlignment="Left" Margin="171,153,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold" Cursor="Hand" RenderTransformOrigin="0.505,0.517" MouseLeftButtonDown="btn_focusY_MouseLeftButtonDown"/>
     </Grid>
     <Grid x:Name="grid_transofrmaciones" HorizontalAlignment="Left" Height="425" Margin="1480,373,0,0" VerticalAlignment="Top" Width="235" Grid.RowSpan="2" Visibility="Hidden">
       <Grid.Background>
@@ -100,10 +100,10 @@
     <Label x:Name="lbl_escala_value" Content="1" HorizontalAlignment="Left" Margin="1459,169,0,0" Grid.Row="1" VerticalAlignment="Top" Foreground="White"/>
     <Label x:Name="lbl_seleccionar" Content="Seleccionar" HorizontalAlignment="Left" Margin="83,4,0,0" VerticalAlignment="Top" Foreground="White" MouseLeftButtonDown="lbl_seleccionar_MouseLeftButtonDown" Cursor="Hand"/>
     <Grid x:Name="grid_figuras" HorizontalAlignment="Left" Height="99" Margin="33,30,0,0" VerticalAlignment="Top" Width="71" Background="#FF213861" Visibility="Hidden">
-      <Label x:Name="opcion_cilindro" Content="Cilindro" HorizontalAlignment="Center" VerticalAlignment="Top" MouseDown="opcion_cilindro_MouseDown" Foreground="#FFFAF8F8"/>
-      <Label x:Name="opcion_piramide" Content="Pirámide" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,23,0,0" Foreground="#FFFAF8F8" MouseDown="opcion_piramide_MouseDown"/>
-      <Label x:Name="opcion_cubo" Content="Cubo" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,46,0,0" Foreground="#FFFAF8F8" MouseDown="opcion_cubo_MouseDown"/>
-      <Label x:Name="opcion_esfera" Content="Esfera" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,69,0,0" Foreground="#FFFAF8F8" MouseDown="opcion_esfera_MouseDown"/>
+      <Label x:Name="opcion_cilindro" Content="Cilindro" HorizontalAlignment="Center" VerticalAlignment="Top" MouseDown="opcion_cilindro_MouseDown" Foreground="#FFFAF8F8" Cursor="Hand"/>
+      <Label x:Name="opcion_piramide" Content="Pirámide" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,23,0,0" Foreground="#FFFAF8F8" MouseDown="opcion_piramide_MouseDown" Cursor="Hand"/>
+      <Label x:Name="opcion_cubo" Content="Cubo" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,46,0,0" Foreground="#FFFAF8F8" MouseDown="opcion_cubo_MouseDown" Cursor="Hand"/>
+      <Label x:Name="opcion_esfera" Content="Esfera" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,69,0,0" Foreground="#FFFAF8F8" MouseDown="opcion_esfera_MouseDown" Cursor="Hand"/>
     </Grid>
   </Grid>
 </Window>
