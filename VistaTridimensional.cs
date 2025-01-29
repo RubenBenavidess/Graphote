@@ -14,8 +14,6 @@ namespace Graphote
     internal class VistaTridimensional: Canvas
     {
         public Camara Camara { get; set; }
-        public WriteableBitmap renderTarget;
-        public int[] pixelBuffer; // Buffer de píxeles (ARGB)
 
         public VistaTridimensional(int Width, int Height) { 
             this.Width = Width;

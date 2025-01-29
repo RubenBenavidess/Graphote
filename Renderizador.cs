@@ -49,8 +49,8 @@ namespace Graphote
 
         public void Renderizar(List<FiguraTridimensional> Figuras, Camara Camara)
         {
-            Array.Fill(pixelBuffer, 0xFF000000); // Fondo negro
-            Array.Fill(zBuffer, float.MaxValue);
+            Array.Fill<int>(pixelBuffer, unchecked((int)0xFF000000)); // Fondo negro
+            Array.Fill<float>(zBuffer, float.MaxValue);
 
             // Obtener matrices
             Matrix4x4 MatrizVista = ControladorPerspectiva.CreateLookAt(
@@ -59,32 +59,31 @@ namespace Graphote
                 Vector3.UnitY
                 );
 
-                // Renderizar cada figura
-                foreach (FiguraTridimensional Figura in Figuras)
+            // Renderizar cada figura
+            foreach (FiguraTridimensional Figura in Figuras)
+            {
+                foreach ((int, int) Arista in Figura.Aristas)
                 {
-                    foreach ((int, int) arista in Figura.Aristas)
-                    {
-                        Vector3 inicio = figura.Vertices[arista.Inicio];
-                        Vector3 fin = figura.Vertices[arista.Fin];
+                    Vector3 inicio = Figura.Vertices[Arista.Item1];
+                    Vector3 fin = Figura.Vertices[Arista.Item2];
 
-                        // Aplicar transformaciones del modelo (si existen)
-                        Vector3 inicioProyectado = ProyectarVertice(inicio, MatrizVista, MatrizProyeccion);
-                        Vector3 finProyectado = ProyectarVertice(fin, MatrizVista, MatrizProyeccion);
+                    // Aplicar transformaciones del modelo (si existen)
+                    Vector3 inicioProyectado = ProyectarVertice(inicio, MatrizVista, MatrizProyeccion);
+                    Vector3 finProyectado = ProyectarVertice(fin, MatrizVista, MatrizProyeccion);
 
-                        // Dibujar línea con z-buffer
-                        DibujarLinea(inicioProyectado, finProyectado, figura.Color);
-                    }
+                    // Dibujar línea con z-buffer
+                    DibujarLinea(inicioProyectado, finProyectado, Figura.Color);
                 }
-
-                // Copiar pixelBuffer al WriteableBitmap
-                ActualizarRenderTarget();
             }
+
+            // Copiar pixelBuffer al WriteableBitmap
+            ActualizarRenderTarget();
         }
 
-        private Vector3 ProyectarVertice(Vector3 vertex, Matrix4x4 view, Matrix4x4 projection)
+        private Vector3 ProyectarVertice(Vector3 vertice, Matrix4x4 vista, Matrix4x4 proyeccion)
         {
-            Vector4 v = Vector4.Transform(new Vector4(vertex, 1), view);
-            v = Vector4.Transform(v, projection);
+            Vector4 v = Vector4.Transform(new Vector4(vertice, 1), vista);
+            v = Vector4.Transform(v, proyeccion);
             v /= v.W;
 
             // Mapear a coordenadas de pantalla
@@ -149,9 +148,9 @@ namespace Graphote
                 pBuffer[i] = pixelBuffer[i];
             }
 
-            renderTarget.AddDirtyRect(new Int32Rect(0, 0, width, height));
+            renderTarget.AddDirtyRect(new Int32Rect(0, 0, Width, Height));
             renderTarget.Unlock();
         }
-
     }
+
 }
