@@ -11,22 +11,28 @@ namespace Graphote
     {
         public static Matrix4x4 CreateLookAt(Vector3 cameraPosition, Vector3 cameraTarget, Vector3 up)
         {
-            Vector3 zAxis = Vector3.Normalize(cameraPosition - cameraTarget); // Dirección hacia adelante
-            Vector3 xAxis = Vector3.Normalize(Vector3.Cross(up, zAxis));      // Eje X (derecha)
-            Vector3 yAxis = Vector3.Cross(zAxis, xAxis);                      // Eje Y (arriba)
+            Vector3 forward = Vector3.Normalize(cameraTarget - cameraPosition);
 
-            Matrix4x4 viewMatrix = new Matrix4x4(
-                xAxis.X, yAxis.X, zAxis.X, 0,
-                xAxis.Y, yAxis.Y, zAxis.Y, 0,
-                xAxis.Z, yAxis.Z, zAxis.Z, 0,
-                -Vector3.Dot(xAxis, cameraPosition),
-                -Vector3.Dot(yAxis, cameraPosition),
-                -Vector3.Dot(zAxis, cameraPosition),
+            // Si la cámara está alineada con el eje Y, usar UnitZ como "Up"
+            if (Math.Abs(forward.Y) > 0.99f)
+            {
+                up = Vector3.UnitZ; // Cambiar el "Up" para evitar singularidad
+            }
+
+            Vector3 right = Vector3.Normalize(Vector3.Cross(up, forward));
+            Vector3 correctedUp = Vector3.Cross(forward, right);
+
+            return new Matrix4x4(
+                right.X, correctedUp.X, forward.X, 0,
+                right.Y, correctedUp.Y, forward.Y, 0,
+                right.Z, correctedUp.Z, forward.Z, 0,
+                -Vector3.Dot(right, cameraPosition),
+                -Vector3.Dot(correctedUp, cameraPosition),
+                -Vector3.Dot(forward, cameraPosition),
                 1
             );
-
-            return viewMatrix;
         }
+
         public static Matrix4x4 CreatePerspective(float fovRadians, float aspectRatio, float near, float far)
         {
             float tanFov = (float)Math.Tan(fovRadians / 2);
@@ -38,6 +44,18 @@ namespace Graphote
                 0, f, 0, 0,
                 0, 0, (near + far) / range, -1,
                 0, 0, (2 * near * far) / range, 0
+            );
+        }
+
+        public static Matrix4x4 CreateOrthographic(float size, float aspectRatio, float near, float far)
+        {
+            float width = size * aspectRatio;
+            float height = size;
+            return new Matrix4x4(
+                2 / width, 0, 0, 0,
+                0, 2 / height, 0, 0,
+                0, 0, 1 / (far - near), 0,
+                0, 0, -near / (far - near), 1
             );
         }
     }

@@ -14,17 +14,18 @@ namespace Graphote
 {
     internal class Renderizador
     {
-        public WriteableBitmap renderTarget { get; set; }
-        private int[] pixelBuffer;
+        public WriteableBitmap RenderTarget { get; set; }
+        private int[] PixelBuffer;
         private float[] zBuffer;
-        private int Width, Height;
-        private Matrix4x4 MatrizProyeccion;
+        public int Width { get; }
+        public int Height { get; }
+        public Matrix4x4 MatrizProyeccion { get; }
 
         public Renderizador(VistaTridimensional vista)
         {
             Width = (int)vista.Width;
             Height = (int)vista.Height;
-            renderTarget = new WriteableBitmap(
+            RenderTarget = new WriteableBitmap(
                 Width,
                 Height,
                 96,
@@ -32,10 +33,10 @@ namespace Graphote
                 PixelFormats.Bgra32,
                 null
             );
-            pixelBuffer = new int[Width * Height];
+            PixelBuffer = new int[Width * Height];
             zBuffer = new float[Width * Height];
             MatrizProyeccion = ControladorPerspectiva.CreatePerspective(
-                MathHelper.ToRadians(45),
+                MathHelper.ToRadians(40),
                 (float)Width / Height,
                 0.1f,
                 100f
@@ -44,15 +45,25 @@ namespace Graphote
 
         public void Renderizar(List<FiguraTridimensional> Figuras, Camara Camara)
         {
-            Array.Fill<int>(pixelBuffer, unchecked((int)0xFF000000)); // Fondo negro
+            Array.Fill<int>(PixelBuffer, unchecked((int)0xFF000000));
             Array.Fill<float>(zBuffer, float.MaxValue);
 
-            // Obtener matrices
+            // Calcular si la cámara está alineada con un eje principal
+            Vector3 direccionCamara = Vector3.Normalize(Vector3.Zero - Camara.Posicion);
+            bool isAxisAligned =
+                Math.Abs(direccionCamara.X) > 0.99f ||
+                Math.Abs(direccionCamara.Y) > 0.99f ||
+                Math.Abs(direccionCamara.Z) > 0.99f;
+
+            Matrix4x4 MatrizProyeccionU = isAxisAligned
+                ? ControladorPerspectiva.CreateOrthographic(10, (float)Width / Height, 0.1f, 100f)
+                : MatrizProyeccion;
+
             Matrix4x4 MatrizVista = ControladorPerspectiva.CreateLookAt(
-                Camara.Posicion, 
-                Vector3.Zero, 
-                Vector3.One
-                );
+                Camara.Posicion,
+                Vector3.Zero,
+                Vector3.UnitY
+            );
 
             // Renderizar cada figura
             foreach (FiguraTridimensional Figura in Figuras)
@@ -63,15 +74,16 @@ namespace Graphote
                     Vector3 fin = Figura.Vertices[Arista.Item2];
 
                     // Aplicar transformaciones del modelo (si existen)
-                    Vector3 inicioProyectado = ProyectarVertice(inicio, MatrizVista, MatrizProyeccion);
-                    Vector3 finProyectado = ProyectarVertice(fin, MatrizVista, MatrizProyeccion);
+                    Vector3 inicioProyectado = ProyectarVertice(inicio, MatrizVista, MatrizProyeccionU);
+                    Vector3 finProyectado = ProyectarVertice(fin, MatrizVista, MatrizProyeccionU);
 
                     // Dibujar línea con z-buffer
                     DibujarLinea(inicioProyectado, finProyectado, Figura.Color.ToArgb());
                 }
             }
-
-            DibujarEjes(5, MatrizVista);
+            
+            if(!isAxisAligned)
+                DibujarEjes(5, MatrizVista);
 
             // Copiar pixelBuffer al WriteableBitmap
             ActualizarRenderTarget();
@@ -149,7 +161,7 @@ namespace Graphote
                     int index = currentY * Width + currentX;
                     if (currentZ < zBuffer[index])
                     {
-                        pixelBuffer[index] = color;
+                        PixelBuffer[index] = color;
                         zBuffer[index] = currentZ;
                     }
                 }
@@ -172,17 +184,17 @@ namespace Graphote
 
         private unsafe void ActualizarRenderTarget()
         {
-            renderTarget.Lock();
-            IntPtr pBackBuffer = renderTarget.BackBuffer;
+            RenderTarget.Lock();
+            IntPtr pBackBuffer = RenderTarget.BackBuffer;
             int* pBuffer = (int*)pBackBuffer.ToPointer();
 
-            for (int i = 0; i < pixelBuffer.Length; i++)
+            for (int i = 0; i < PixelBuffer.Length; i++)
             {
-                pBuffer[i] = pixelBuffer[i];
+                pBuffer[i] = PixelBuffer[i];
             }
 
-            renderTarget.AddDirtyRect(new Int32Rect(0, 0, Width, Height));
-            renderTarget.Unlock();
+            RenderTarget.AddDirtyRect(new Int32Rect(0, 0, Width, Height));
+            RenderTarget.Unlock();
         }
     }
 
