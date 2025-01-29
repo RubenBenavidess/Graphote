@@ -13,11 +13,10 @@ namespace Graphote
         private int Id;
         private MatrizTransformacion Matriz = new MatrizTransformacion();
         public Vector3[] Vertices { get; set; }
-        public List<(int, int)> Aristas { get; set; }
-        private List<Cara> Caras;
+        public (int, int)[] Aristas { get; set; }
         public Color Color { get; set; }
 
-        public FiguraTridimensional(int id, Color color)
+        public FiguraTridimensional(int id, Vector3[] vertices, (int, int)[] aristas, Color color)
         {
 
         }
