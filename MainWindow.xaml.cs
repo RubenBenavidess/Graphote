@@ -223,6 +223,7 @@ namespace Graphote
                     lbl_coordenadaX.Content = FiguraSeleccionada.Posicion.X.ToString();
                     lbl_coordenadaY.Content = FiguraSeleccionada.Posicion.Y.ToString();
                     lbl_coordenadaZ.Content = FiguraSeleccionada.Posicion.Z.ToString();
+                    ActualizarGridTransformaciones();
 
                     // Opcional: Resaltar la figura seleccionada
                 }
@@ -396,7 +397,12 @@ namespace Graphote
             float _eje;
             try
             {
-                _eje = float.Parse(txt_trasladarX.Text);
+                _eje = float.Parse(txt_trasladarX.Text) / 10.0f;
+                if (_eje > 9)
+                {
+                    MessageBox.Show("Trasladar menos de 9 puntos", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
             }
             catch
             {

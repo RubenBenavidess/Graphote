@@ -67,7 +67,7 @@ namespace Graphote.Render.Renderizador
                 Vector3.UnitY
             );
 
-            DibujarEjes(10, MatrizVista, direccionCamara);
+            DibujarEjes(11, MatrizVista, direccionCamara);
 
             // Renderizar cada figura
             foreach (FiguraTridimensional Figura in Figuras)

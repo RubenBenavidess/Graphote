@@ -44,8 +44,8 @@ namespace Graphote.Graficos.Renderizador.Renderizador
 
         public static Matrix4x4 CreateOrthographic(float size, float aspectRatio, float near, float far)
         {
-            float halfWidth = size * aspectRatio * 0.25f;
-            float halfHeight = size * 0.25f;
+            float halfWidth = size * aspectRatio * 0.125f;
+            float halfHeight = size * 0.125f;
 
             return new Matrix4x4(
                 1 / halfWidth, 0, 0, 0,

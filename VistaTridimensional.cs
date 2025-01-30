@@ -12,7 +12,7 @@ namespace Graphote
         {
             Width = 1421;
             Height = 812;
-            Camara = new Camara(new Vector3(4, 5, 10));
+            Camara = new Camara(new Vector3(5.77f, 4.77f, 5.77f));
         }
 
 
