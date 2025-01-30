@@ -195,6 +195,7 @@ namespace Graphote
     {
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       if (grid_figuras.Visibility == Visibility.Visible)
       {
         lbl_añadir.Background = null;
@@ -208,6 +209,8 @@ namespace Graphote
                   (Color)ColorConverter.ConvertFromString("#457B9D"));
       }
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
         if (grid_figuras.Visibility == Visibility.Visible)
