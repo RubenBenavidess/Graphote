@@ -21,6 +21,10 @@
                     <ImageBrush ImageSource="{Binding ElementName=image_3D, Mode=OneWay}"/>
                 </local:VistaTridimensional.Background>
                 <Image x:Name="image_3D" Height="810" Width="1417" HorizontalAlignment="Left" Canvas.Top="-1" VerticalAlignment="Center" Canvas.Left="1"/>
+                <Label x:Name="lbl_coordenadas" Content="Coordenadas" Canvas.Left="13" Canvas.Top="741" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White"/>
+                <Label x:Name="lbl_coordenadaX" Content="" Canvas.Left="21" Canvas.Top="771" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label x:Name="lbl_coordenadaY" Content="" Canvas.Left="66" Canvas.Top="771" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label x:Name="lbl_coordenadaZ" Content="" Canvas.Left="118" Canvas.Top="771" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             </local:VistaTridimensional>
         </Border>
         <Label x:Name="lbl_añadir" Content="Añadir" HorizontalAlignment="Left" Margin="33,4,0,0" VerticalAlignment="Top" Foreground="White" Cursor="Hand" MouseDown="lbl_añadir_MouseDown"/>
@@ -73,10 +77,10 @@
                     <GradientStop Color="#FF1E2127"/>
                 </LinearGradientBrush>
             </Grid.Background>
-            <Slider x:Name="slider_rotarX" HorizontalAlignment="Left" Margin="53,127,0,0" VerticalAlignment="Top" Width="171" Maximum="180" Minimum="-180" ValueChanged="slider_rotarX_ValueChanged" Cursor="Hand"/>
-            <Slider x:Name="slider_rotarY" HorizontalAlignment="Left" Margin="53,183,0,0" VerticalAlignment="Top" Width="171" Maximum="180" Minimum="-180" ValueChanged="slider_rotarY_ValueChanged" Cursor="Hand"/>
+            <Slider x:Name="slider_rotarX" HorizontalAlignment="Left" Margin="53,127,0,0" VerticalAlignment="Top" Width="171" Maximum="180" Minimum="-180" ValueChanged="slider_rotarX_ValueChanged" Cursor="Hand" SmallChange="1"/>
+            <Slider x:Name="slider_rotarY" HorizontalAlignment="Left" Margin="53,183,0,0" VerticalAlignment="Top" Width="171" Maximum="180" Minimum="-180" ValueChanged="slider_rotarY_ValueChanged" Cursor="Hand" SmallChange="1"/>
 
-            <Slider x:Name="slider_rotarZ" HorizontalAlignment="Left" Margin="53,239,0,0" VerticalAlignment="Top" Width="171" Maximum="180" Minimum="-180" ValueChanged="slider_rotarZ_ValueChanged" Cursor="Hand"/>
+            <Slider x:Name="slider_rotarZ" HorizontalAlignment="Left" Margin="53,239,0,0" VerticalAlignment="Top" Width="171" Maximum="180" Minimum="-180" ValueChanged="slider_rotarZ_ValueChanged" Cursor="Hand" SmallChange="1"/>
             <Label x:Name="lbl_valor_rotarZ" Content="0" HorizontalAlignment="Left" Margin="131,259,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White"/>
             <Label x:Name="lbl_valor_rotarY" Content="0" HorizontalAlignment="Left" Margin="131,203,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White"/>
             <Label x:Name="lbl_valor_rotarX1" Content="0" HorizontalAlignment="Left" Margin="131,147,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White"/>
@@ -104,7 +108,7 @@
         </Grid>
         <Label x:Name="lbl_escala_value" Content="1" HorizontalAlignment="Left" Margin="1136,169,0,0" Grid.Row="1" VerticalAlignment="Top" Foreground="White" Grid.Column="2"/>
         <Label x:Name="lbl_seleccionar" Content="Seleccionar" HorizontalAlignment="Left" Margin="83,4,0,0" VerticalAlignment="Top" Foreground="White" MouseLeftButtonDown="lbl_seleccionar_MouseLeftButtonDown" Cursor="Hand"/>
-        <Grid x:Name="grid_figuras" HorizontalAlignment="Left" Height="99" Margin="33,30,0,0" VerticalAlignment="Top" Width="71" Background="#FF213861" Visibility="Visible">
+        <Grid x:Name="grid_figuras" HorizontalAlignment="Left" Height="99" Margin="33,30,0,0" VerticalAlignment="Top" Width="71" Background="#FF213861" Visibility="Hidden">
             <Label x:Name="opcion_cilindro" Content="Cilindro" HorizontalAlignment="Center" VerticalAlignment="Top" MouseDown="opcion_cilindro_MouseDown" Foreground="#FFFAF8F8" Cursor="Hand" MouseMove="opcion_cilindro_MouseMove"/>
             <Label x:Name="opcion_piramide" Content="Pirámide" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,23,0,0" Foreground="#FFFAF8F8" MouseDown="opcion_piramide_MouseDown" Cursor="Hand" MouseMove="opcion_piramide_MouseMove"/>
             <Label x:Name="opcion_cubo" Content="Cubo" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,46,0,0" Foreground="#FFFAF8F8" MouseDown="opcion_cubo_MouseDown" Cursor="Hand" MouseMove="opcion_cubo_MouseMove"/>
