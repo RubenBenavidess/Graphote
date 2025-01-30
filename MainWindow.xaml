@@ -66,7 +66,7 @@
             <Label x:Name="lbl_focusX" Content="X" HorizontalAlignment="Left" Margin="41,131,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold" Cursor="Hand" MouseLeftButtonDown="btn_focusX_MouseLeftButtonDown"/>
             <Label x:Name="lbl_focusY" Content="Y" HorizontalAlignment="Left" Margin="171,153,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold" Cursor="Hand" RenderTransformOrigin="0.505,0.517" MouseLeftButtonDown="btn_focusY_MouseLeftButtonDown"/>
         </Grid>
-        <Grid x:Name="grid_transofrmaciones" HorizontalAlignment="Left" Height="425" Margin="1157,373,0,0" VerticalAlignment="Top" Width="235" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="2">
+        <Grid x:Name="grid_transofrmaciones" HorizontalAlignment="Left" Height="425" Margin="1157,373,0,0" VerticalAlignment="Top" Width="235" Grid.RowSpan="2" Visibility="Visible" Grid.Column="2">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black"/>
