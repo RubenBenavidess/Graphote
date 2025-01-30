@@ -83,9 +83,9 @@
             <Label Content="-180°" HorizontalAlignment="Left" Margin="41,101,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White"/>
             <Label Content="180°" HorizontalAlignment="Left" Margin="196,102,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White"/>
             <Label Content="Trasladar" HorizontalAlignment="Left" Margin="10,309,0,0" VerticalAlignment="Top" Foreground="White"/>
-            <TextBox x:Name="txt_trasladarX" HorizontalAlignment="Left" Margin="10,366,0,0" TextWrapping="Wrap" Text="0.00" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" LostFocus="txt_trasladarX_LostFocus"/>
-            <TextBox x:Name="txt_trasladarY" HorizontalAlignment="Left" Margin="80,366,0,0" TextWrapping="Wrap" Text="0.00" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="txt_trasladarZ" HorizontalAlignment="Left" Margin="150,366,0,0" TextWrapping="Wrap" Text="0.00" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="txt_trasladarX" HorizontalAlignment="Left" Margin="10,366,0,0" TextWrapping="Wrap" Text="0.00" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" LostFocus="txt_trasladarX_LostFocus" KeyDown="txt_trasladarX_KeyDown"/>
+            <TextBox x:Name="txt_trasladarY" HorizontalAlignment="Left" Margin="80,366,0,0" TextWrapping="Wrap" Text="0.00" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" LostFocus="txt_trasladarY_LostFocus" KeyDown="txt_trasladarY_KeyDown"/>
+            <TextBox x:Name="txt_trasladarZ" HorizontalAlignment="Left" Margin="150,366,0,0" TextWrapping="Wrap" Text="0.00" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" LostFocus="txt_trasladarZ_LostFocus" KeyDown="txt_trasladarZ_KeyDown"/>
             <TextBox x:Name="txt_tituloX" HorizontalAlignment="Left" Margin="10,341,0,0" TextWrapping="Wrap" Text="X" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FF0D1B2A" Foreground="White"/>
             <TextBox x:Name="txt_tituloY" HorizontalAlignment="Left" Margin="80,341,0,0" TextWrapping="Wrap" Text="Y" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF0D1B2A"/>
             <TextBox x:Name="txt_tituloZ" HorizontalAlignment="Left" Margin="150,341,0,0" TextWrapping="Wrap" Text="Z" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FF0D1B2A" Foreground="White"/>
@@ -104,11 +104,11 @@
         </Grid>
         <Label x:Name="lbl_escala_value" Content="1" HorizontalAlignment="Left" Margin="1136,169,0,0" Grid.Row="1" VerticalAlignment="Top" Foreground="White" Grid.Column="2"/>
         <Label x:Name="lbl_seleccionar" Content="Seleccionar" HorizontalAlignment="Left" Margin="83,4,0,0" VerticalAlignment="Top" Foreground="White" MouseLeftButtonDown="lbl_seleccionar_MouseLeftButtonDown" Cursor="Hand"/>
-        <Grid x:Name="grid_figuras" HorizontalAlignment="Left" Height="99" Margin="33,30,0,0" VerticalAlignment="Top" Width="71" Background="#FF213861" Visibility="Hidden">
-            <Label x:Name="opcion_cilindro" Content="Cilindro" HorizontalAlignment="Center" VerticalAlignment="Top" MouseDown="opcion_cilindro_MouseDown" Foreground="#FFFAF8F8" Cursor="Hand"/>
-            <Label x:Name="opcion_piramide" Content="Pirámide" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,23,0,0" Foreground="#FFFAF8F8" MouseDown="opcion_piramide_MouseDown" Cursor="Hand"/>
-            <Label x:Name="opcion_cubo" Content="Cubo" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,46,0,0" Foreground="#FFFAF8F8" MouseDown="opcion_cubo_MouseDown" Cursor="Hand"/>
-            <Label x:Name="opcion_esfera" Content="Esfera" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,69,0,0" Foreground="#FFFAF8F8" MouseDown="opcion_esfera_MouseDown" Cursor="Hand"/>
+        <Grid x:Name="grid_figuras" HorizontalAlignment="Left" Height="99" Margin="33,30,0,0" VerticalAlignment="Top" Width="71" Background="#FF213861" Visibility="Visible">
+            <Label x:Name="opcion_cilindro" Content="Cilindro" HorizontalAlignment="Center" VerticalAlignment="Top" MouseDown="opcion_cilindro_MouseDown" Foreground="#FFFAF8F8" Cursor="Hand" MouseMove="opcion_cilindro_MouseMove"/>
+            <Label x:Name="opcion_piramide" Content="Pirámide" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,23,0,0" Foreground="#FFFAF8F8" MouseDown="opcion_piramide_MouseDown" Cursor="Hand" MouseMove="opcion_piramide_MouseMove"/>
+            <Label x:Name="opcion_cubo" Content="Cubo" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,46,0,0" Foreground="#FFFAF8F8" MouseDown="opcion_cubo_MouseDown" Cursor="Hand" MouseMove="opcion_cubo_MouseMove"/>
+            <Label x:Name="opcion_esfera" Content="Esfera" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,69,0,0" Foreground="#FFFAF8F8" MouseDown="opcion_esfera_MouseDown" Cursor="Hand" MouseMove="opcion_esfera_MouseMove"/>
         </Grid>
     </Grid>
 </Window>

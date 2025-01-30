@@ -329,21 +329,80 @@ namespace Graphote
             }
         }
 
-        private void txt_trasladarX_LostFocus(object sender, RoutedEventArgs e)
-        {
-            float x;
-            try
-            {
-                x = float.Parse(txt_trasladarX.Text);
-            }
-            catch
-            {
-                MessageBox.Show("Solo números", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            FiguraSeleccionada?.Trasladar(x, 'X');
-            render.Renderizar(Figuras, pic_canvas.Camara);
-            image_3D.Source = render.RenderTarget;
-        }
+    //Pintar opciones del menu de figuras 
+    private void opcion_cilindro_MouseMove(object sender, MouseEventArgs e)
+    {
+      opcion_cilindro.Background = new SolidColorBrush(
+            (Color)ColorConverter.ConvertFromString("#457B9D"));
     }
+
+    private void opcion_piramide_MouseMove(object sender, MouseEventArgs e)
+    {
+      opcion_piramide.Background = new SolidColorBrush(
+            (Color)ColorConverter.ConvertFromString("#457B9D"));
+    }
+
+    private void opcion_cubo_MouseMove(object sender, MouseEventArgs e)
+    {
+      opcion_cubo.Background = new SolidColorBrush(
+            (Color)ColorConverter.ConvertFromString("#457B9D"));
+    }
+
+    private void opcion_esfera_MouseMove(object sender, MouseEventArgs e)
+    {
+      opcion_esfera.Background = new SolidColorBrush(
+            (Color)ColorConverter.ConvertFromString("#457B9D"));
+    }
+
+    // Trasladar la figura con el valor de los txt cuando se pierda el foco
+    private void txt_trasladarX_LostFocus(object sender, RoutedEventArgs e)
+    {
+      validar_texto('X');
+    }
+    private void txt_trasladarY_LostFocus(object sender, RoutedEventArgs e)
+    {
+      validar_texto('Y');
+    }
+    private void txt_trasladarZ_LostFocus(object sender, RoutedEventArgs e)
+    {
+      validar_texto('Y');
+    }
+
+    //Trasladar la figura con el valor de los txt cuando se presione Enter
+    private void txt_trasladarX_KeyDown(object sender, KeyEventArgs e)
+    {
+      if (e.Key == Key.Enter)
+        validar_texto('X');
+    }
+
+    private void txt_trasladarY_KeyDown(object sender, KeyEventArgs e)
+    {
+      if (e.Key == Key.Enter)
+        validar_texto('Y');
+    }
+
+    private void txt_trasladarZ_KeyDown(object sender, KeyEventArgs e)
+    {
+      if (e.Key == Key.Enter)
+        validar_texto('Z');
+    }
+
+    public void validar_texto(char eje)
+    {
+      float _eje;
+      try
+      {
+        _eje = float.Parse(txt_trasladarX.Text);
+      }
+      catch
+      {
+        MessageBox.Show("Solo números", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+        return;
+      }
+      FiguraSeleccionada.Trasladar(_eje, eje);
+      render.Renderizar(Figuras, pic_canvas.Camara);
+      image_3D.Source = render.RenderTarget;
+      
+    }
+  }
 }
