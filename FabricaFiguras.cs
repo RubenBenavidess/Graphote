@@ -37,7 +37,7 @@ namespace Graphote
                 (0, 4), (1, 5), (2, 6), (3, 7)   // Conexión entre bases
             };
 
-            Color Color = Color.AntiqueWhite;
+            Color Color = generateColorId();
 
             return new FiguraTridimensional(Id, Vertices, Aristas, Color);
 
@@ -62,7 +62,7 @@ namespace Graphote
                 (0, 4), (1, 4), (2, 4), (3, 4)   // Conexiones a la punta
             };
 
-            Color Color = Color.White;
+            Color Color = generateColorId();
 
             return new FiguraTridimensional(Id, Vertices, Aristas, Color);
 
@@ -70,6 +70,8 @@ namespace Graphote
 
         public static FiguraTridimensional CrearCilindro()
         {
+            Id++;
+
             int segmentos = 30;
             float radio = 0.5f;
             Vector3[] Vertices = new Vector3[segmentos * 2];
@@ -97,13 +99,15 @@ namespace Graphote
                 Aristas[i * 3 + 2] = (i * 2, i * 2 + 1);     // Conexión entre bases
             }
 
-            Color Color = Color.FromArgb(0xFF, (byte)(Id << 2), 0, 0);
+            Color Color = generateColorId();
 
             return new FiguraTridimensional(Id, Vertices, Aristas, Color);
         }
 
         public static FiguraTridimensional CrearEsfera()
         {
+            Id++;
+
             int subdivisiones = 10;
             float radio = 1.0f;
 
@@ -171,7 +175,7 @@ namespace Graphote
             (int, int)[] Aristas = new (int, int)[indiceArista];
             Array.Copy(tempAristas, Aristas, indiceArista);
 
-            Color Color = Color.White;
+            Color Color = generateColorId();
 
             return new FiguraTridimensional(Id, Vertices, Aristas, Color);
         }
@@ -184,5 +188,12 @@ namespace Graphote
             new int[] { 4, 9, 5 }, new int[] { 2, 4, 11 }, new int[] { 6, 2, 10 }, new int[] { 8, 6, 7 }, new int[] { 9, 8, 1 }
         };
 
+        private static Color generateColorId()
+        {
+            byte r = (byte)(255 - (Id * 10) % 255);
+            byte g = (byte)(255-(Id * 20) % 255);
+            byte b = (byte)(255-(Id * 30) % 255);
+            return Color.FromArgb(0xFF, r, g, b);
+        }
     }
 }

@@ -21,6 +21,7 @@ namespace Graphote
         FiguraTridimensional? FiguraSeleccionada = null;
         Vector3[] VerticesOriginalesFigura;
         bool seleccionar = false;
+        
 
         public MainWindow()
         {
@@ -86,6 +87,8 @@ namespace Graphote
                     FiguraSeleccionada.Vertices = VerticesOriginalesFigura.Select(v => new Vector3(v.X, v.Y, v.Z)).ToArray();
                 }
                 FiguraSeleccionada.Rotar((float)e.NewValue, 'X');
+                FiguraSeleccionada.Rotar((float)slider_rotarY.Value, 'Y');
+                FiguraSeleccionada.Rotar((float)slider_rotarZ.Value, 'Z');
                 render.Renderizar(Figuras, pic_canvas.Camara);
                 image_3D.Source = render.RenderTarget;
             }
@@ -99,7 +102,9 @@ namespace Graphote
                 {
                     FiguraSeleccionada.Vertices = VerticesOriginalesFigura.Select(v => new Vector3(v.X, v.Y, v.Z)).ToArray();
                 }
+                FiguraSeleccionada.Rotar((float)slider_rotarX.Value, 'X');
                 FiguraSeleccionada.Rotar((float)e.NewValue, 'Y');
+                FiguraSeleccionada.Rotar((float)slider_rotarZ.Value, 'Z');
                 render.Renderizar(Figuras, pic_canvas.Camara);
                 image_3D.Source = render.RenderTarget;
             }
@@ -113,6 +118,8 @@ namespace Graphote
                 {
                     FiguraSeleccionada.Vertices = VerticesOriginalesFigura.Select(v => new Vector3(v.X, v.Y, v.Z)).ToArray();
                 }
+                FiguraSeleccionada.Rotar((float)slider_rotarX.Value, 'X');
+                FiguraSeleccionada.Rotar((float)slider_rotarX.Value, 'Y');
                 FiguraSeleccionada.Rotar((float)e.NewValue, 'Z');
                 render.Renderizar(Figuras, pic_canvas.Camara);
                 image_3D.Source = render.RenderTarget;
@@ -121,20 +128,25 @@ namespace Graphote
 
         private void btn_focusZ_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            pic_canvas.Camara.Posicion = new Vector3(0,0, pic_canvas.Camara.Posicion.Length());
+            float distanciaCamara = Vector3.Distance(Vector3.Zero, pic_canvas.Camara.Posicion);
+            pic_canvas.Camara.Posicion = new Vector3(0,0, distanciaCamara);
             render.Renderizar(Figuras, pic_canvas.Camara);
             image_3D.Source = render.RenderTarget;
         }
 
         private void btn_focusX_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            float distanciaCamara = Vector3.Distance(Vector3.Zero, pic_canvas.Camara.Posicion);
+            pic_canvas.Camara.Posicion = new Vector3(0, 0, distanciaCamara);
             pic_canvas.Camara.Posicion = new Vector3(pic_canvas.Camara.Posicion.Length(), 0, 0);
             render.Renderizar(Figuras, pic_canvas.Camara);
             image_3D.Source = render.RenderTarget;
         }
-
+        
         private void btn_focusY_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            float distanciaCamara = Vector3.Distance(Vector3.Zero, pic_canvas.Camara.Posicion);
+            pic_canvas.Camara.Posicion = new Vector3(0, 0, distanciaCamara);
             pic_canvas.Camara.Posicion = new Vector3(0, pic_canvas.Camara.Posicion.Length(), 0);
             render.Renderizar(Figuras, pic_canvas.Camara);
             image_3D.Source = render.RenderTarget;
@@ -144,6 +156,9 @@ namespace Graphote
         {
             FiguraTridimensional cilindro = FabricaFiguras.CrearCilindro();
             Figuras.Add(cilindro);
+            grid_figuras.Visibility = Visibility.Hidden;
+            render.Renderizar(Figuras, pic_canvas.Camara);
+            image_3D.Source = render.RenderTarget;
         }
 
         private void opcion_piramide_MouseDown(object sender, MouseButtonEventArgs e)
@@ -183,28 +198,31 @@ namespace Graphote
 
         private void pic_canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Point posicionClic = e.GetPosition(pic_canvas);
+            if (seleccionar) {
+                Point posicionClic = e.GetPosition(pic_canvas);
             
-            render.Renderizar(Figuras, pic_canvas.Camara);
+                render.Renderizar(Figuras, pic_canvas.Camara);
 
-            // 2. Obtener figura seleccionada
-            FiguraTridimensional? FiguraEnClick = ControladorInterfaz.SeleccionarFiguraPorColor(
-                posicionClic,
-                Figuras,
-                (int)pic_canvas.ActualWidth,
-                (int)pic_canvas.ActualHeight,
-                render.RenderTarget
-            );
+                // 2. Obtener figura seleccionada
+                FiguraTridimensional? FiguraEnClick = ControladorInterfaz.SeleccionarFiguraPorColor(
+                    posicionClic,
+                    Figuras,
+                    (int)pic_canvas.ActualWidth,
+                    (int)pic_canvas.ActualHeight,
+                    render.RenderTarget
+                );
 
-            if (FiguraEnClick != null)
-            {
-                FiguraSeleccionada = FiguraEnClick;
-                grid_transofrmaciones.Visibility = Visibility.Visible;
+                if (FiguraEnClick != null)
+                {
+                    FiguraSeleccionada = FiguraEnClick;
+                    //Actualizar();
+                    grid_transofrmaciones.Visibility = Visibility.Visible;
 
-                VerticesOriginalesFigura = FiguraSeleccionada.Vertices.Select(v => new Vector3(v.X, v.Y, v.Z)).ToArray();
-                // Opcional: Resaltar la figura seleccionada
+
+                    VerticesOriginalesFigura = FiguraSeleccionada.Vertices.Select(v => new Vector3(v.X, v.Y, v.Z)).ToArray();
+                    // Opcional: Resaltar la figura seleccionada
+                }
             }
-
         }
 
         private Point _puntoAnteriorMouse;
@@ -220,23 +238,62 @@ namespace Graphote
                     (float)(posicionActual.Y - _puntoAnteriorMouse.Y)
                 );
 
-                // Ajustar sensibilidad (0.01f es un valor recomendado)
                 float sensibilidad = 0.10f;
                 delta *= sensibilidad;
 
-                // Obtener ejes de la cámara
-                Vector3 adelante = Vector3.Normalize(Vector3.Zero - pic_canvas.Camara.Posicion);
-                Vector3 derecha = Vector3.Normalize(Vector3.Cross(Vector3.UnitY, adelante));
+                // 1. Evitar que la cámara llegue al origen (causa NaN)
+                if (pic_canvas.Camara.Posicion.Length() < 0.1f)
+                {
+                    pic_canvas.Camara.Posicion = new Vector3(0.1f, 0.1f, 0.1f);
+                }
+
+                // 2. Calcular dirección "adelante" con validación
+                Vector3 direccionAlOrigen = Vector3.Zero - pic_canvas.Camara.Posicion;
+                Vector3 adelante = Vector3.Normalize(direccionAlOrigen);
+
+                // 3. Calcular ejes con fallback seguro
+                Vector3 derecha;
+                if (Vector3.Cross(Vector3.UnitY, adelante) == Vector3.Zero)
+                {
+                    // Si la cámara está alineada con Y, usar UnitZ como "derecha"
+                    derecha = Vector3.UnitZ;
+                }
+                else
+                {
+                    derecha = Vector3.Normalize(Vector3.Cross(Vector3.UnitY, adelante));
+                }
+
                 Vector3 arriba = Vector3.Cross(adelante, derecha);
 
-                // Mover la cámara en el plano local (pan)
+                // 4. Mover cámara
                 pic_canvas.Camara.Posicion += derecha * delta.X + arriba * delta.Y;
 
-                // Actualizar el renderizado
+                // 5. Forzar actualización
                 render.Renderizar(Figuras, pic_canvas.Camara);
                 image_3D.Source = render.RenderTarget;
 
                 _puntoAnteriorMouse = posicionActual;
+            }
+            else if(seleccionar)
+            {
+                Point posicionClic = e.GetPosition(pic_canvas);
+                // 2. Obtener figura seleccionada
+                FiguraTridimensional? FiguraEnMov = ControladorInterfaz.SeleccionarFiguraPorColor(
+                    posicionClic,
+                    Figuras,
+                    (int)pic_canvas.ActualWidth,
+                    (int)pic_canvas.ActualHeight,
+                    render.RenderTarget
+                );
+
+                if (FiguraEnMov != null)
+                {
+                    Cursor = Cursors.Hand;
+                }
+                else
+                {
+                    Cursor = Cursors.Arrow;
+                }
             }
         }
 
@@ -257,6 +314,23 @@ namespace Graphote
                 _estaMoviendoCamara = false;
                 pic_canvas.ReleaseMouseCapture(); // Liberar el mouse
             }
+        }
+
+        private void txt_trasladarX_LostFocus(object sender, RoutedEventArgs e)
+        {
+            float x;
+            try
+            {
+                x = float.Parse(txt_trasladarX.Text);
+            }
+            catch
+            {
+                MessageBox.Show("Solo números", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            FiguraSeleccionada?.Trasladar(x, 'X');
+            render.Renderizar(Figuras, pic_canvas.Camara);
+            image_3D.Source = render.RenderTarget;
         }
     }
 }

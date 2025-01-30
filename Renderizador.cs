@@ -55,15 +55,19 @@ namespace Graphote
                 Math.Abs(direccionCamara.Y) > 0.99f ||
                 Math.Abs(direccionCamara.Z) > 0.99f;
 
+            float distanciaCamara = Vector3.Distance(Vector3.Zero, Camara.Posicion);
+
             Matrix4x4 MatrizProyeccionU = isAxisAligned
-                ? ControladorPerspectiva.CreateOrthographic((float)Width / Height, (float)Width / Height, 0.1f, 100f)
+                ? 
+                ControladorPerspectiva.CreateOrthographic(distanciaCamara, 
+                    (float)Width / Height, 
+                    0.1f, 100f)
                 : MatrizProyeccion;
 
-            Vector3 up = (Math.Abs(direccionCamara.Y) > 0.99f) ? Vector3.UnitZ : Vector3.UnitY;
             Matrix4x4 MatrizVista = ControladorPerspectiva.CreateLookAt(
                 Camara.Posicion,
                 Vector3.Zero,
-                up
+                Vector3.UnitY
             );
 
             DibujarEjes(10, MatrizVista, direccionCamara);

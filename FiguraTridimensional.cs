@@ -16,12 +16,15 @@ namespace Graphote
         public (int, int)[] Aristas { get; set; }
         public Color Color { get; set; }
 
+        public Vector3 Posicion;
+
         public FiguraTridimensional(int id, Vector3[] vertices, (int, int)[] aristas, Color color)
         {
-          this.Id = id;
-          this.Vertices = vertices;
-          this.Color = color;
-          this.Aristas = aristas;
+            this.Id = id;
+            this.Vertices = vertices;
+            this.Color = color;
+            this.Aristas = aristas;
+            this.Posicion = Vector3.Zero;
         }
 
         public void Trasladar(float distancia, char eje)
@@ -35,6 +38,12 @@ namespace Graphote
                 VectorResultante = Matriz.Transformar(VectorAuxiliar);
                 Vertices[i] = new Vector3(VectorResultante[0], VectorResultante[1], VectorResultante[2]);
             }
+            if (eje == 'X')
+                Posicion.X += distancia;
+            if (eje == 'Y')
+                Posicion.Y += distancia;
+            if (eje == 'Z')
+                Posicion.Z += distancia;
         }
         public void Rotar(float angulo, char eje)
         {
