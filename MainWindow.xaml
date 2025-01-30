@@ -66,7 +66,7 @@
             <Label x:Name="lbl_focusX" Content="X" HorizontalAlignment="Left" Margin="41,131,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold" Cursor="Hand" MouseLeftButtonDown="btn_focusX_MouseLeftButtonDown"/>
             <Label x:Name="lbl_focusY" Content="Y" HorizontalAlignment="Left" Margin="171,153,0,0" VerticalAlignment="Top" FontSize="13" FontWeight="Bold" Cursor="Hand" RenderTransformOrigin="0.505,0.517" MouseLeftButtonDown="btn_focusY_MouseLeftButtonDown"/>
         </Grid>
-        <Grid x:Name="grid_transofrmaciones" HorizontalAlignment="Left" Height="425" Margin="1157,373,0,0" VerticalAlignment="Top" Width="235" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="2">
+        <Grid x:Name="grid_transofrmaciones" HorizontalAlignment="Left" Height="425" Margin="1157,373,0,0" VerticalAlignment="Top" Width="235" Grid.RowSpan="2" Visibility="Visible" Grid.Column="2">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black"/>
@@ -83,9 +83,9 @@
             <Label Content="-180°" HorizontalAlignment="Left" Margin="41,101,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White"/>
             <Label Content="180°" HorizontalAlignment="Left" Margin="196,102,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White"/>
             <Label Content="Trasladar" HorizontalAlignment="Left" Margin="10,309,0,0" VerticalAlignment="Top" Foreground="White"/>
-            <TextBox x:Name="txt_trasladarX" HorizontalAlignment="Left" Margin="10,366,0,0" TextWrapping="Wrap" Text="0.00" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="txt_trasladarY" HorizontalAlignment="Left" Margin="80,366,0,0" TextWrapping="Wrap" Text="0.00" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="txt_trasladarZ" HorizontalAlignment="Left" Margin="150,366,0,0" TextWrapping="Wrap" Text="0.00" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="txt_trasladarX" HorizontalAlignment="Left" Margin="10,366,0,0" TextWrapping="Wrap" Text="0.00" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" LostFocus="txt_trasladarX_LostFocus"/>
+            <TextBox x:Name="txt_trasladarY" HorizontalAlignment="Left" Margin="80,366,0,0" TextWrapping="Wrap" Text="0.00" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" LostFocus="txt_trasladarY_LostFocus"/>
+            <TextBox x:Name="txt_trasladarZ" HorizontalAlignment="Left" Margin="150,366,0,0" TextWrapping="Wrap" Text="0.00" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" LostFocus="txt_trasladarZ_LostFocus"/>
             <TextBox x:Name="txt_tituloX" HorizontalAlignment="Left" Margin="10,341,0,0" TextWrapping="Wrap" Text="X" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FF0D1B2A" Foreground="White"/>
             <TextBox x:Name="txt_tituloY" HorizontalAlignment="Left" Margin="80,341,0,0" TextWrapping="Wrap" Text="Y" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Background="#FF0D1B2A"/>
             <TextBox x:Name="txt_tituloZ" HorizontalAlignment="Left" Margin="150,341,0,0" TextWrapping="Wrap" Text="Z" VerticalAlignment="Top" Width="70" Height="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#FF0D1B2A" Foreground="White"/>
