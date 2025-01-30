@@ -24,7 +24,6 @@ namespace Graphote
           this.Aristas = aristas;
         }
 
-
         public void Trasladar(float distancia, char eje)
         {
             Matriz.MatrizTraslacion(distancia, eje);

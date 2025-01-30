@@ -37,7 +37,7 @@ namespace Graphote
                 (0, 4), (1, 5), (2, 6), (3, 7)   // Conexión entre bases
             };
 
-            Color Color = Color.White;
+            Color Color = Color.AntiqueWhite;
 
             return new FiguraTridimensional(Id, Vertices, Aristas, Color);
 
@@ -97,7 +97,7 @@ namespace Graphote
                 Aristas[i * 3 + 2] = (i * 2, i * 2 + 1);     // Conexión entre bases
             }
 
-            Color Color = Color.White;
+            Color Color = Color.FromArgb(0xFF, (byte)(Id << 2), 0, 0);
 
             return new FiguraTridimensional(Id, Vertices, Aristas, Color);
         }

@@ -49,11 +49,12 @@ namespace Graphote
 
         public static Matrix4x4 CreateOrthographic(float size, float aspectRatio, float near, float far)
         {
-            float width = size * aspectRatio;
-            float height = size;
+            float halfWidth = size * aspectRatio * 0.5f;
+            float halfHeight = size * 0.5f;
+
             return new Matrix4x4(
-                2 / width, 0, 0, 0,
-                0, 2 / height, 0, 0,
+                1 / halfWidth, 0, 0, 0,
+                0, 1 / halfHeight, 0, 0,
                 0, 0, 1 / (far - near), 0,
                 0, 0, -near / (far - near), 1
             );
