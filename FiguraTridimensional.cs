@@ -16,7 +16,9 @@ namespace Graphote
         public (int, int)[] Aristas { get; set; }
         public Color Color { get; set; }
 
-        public Vector3 Posicion;
+        public Vector3 Posicion { get; private set; }
+        public Vector3 Rotacion { get; private set; }
+        public float Escala { get; private set; }
 
         public FiguraTridimensional(int id, Vector3[] vertices, (int, int)[] aristas, Color color)
         {
@@ -25,10 +27,13 @@ namespace Graphote
             this.Color = color;
             this.Aristas = aristas;
             this.Posicion = Vector3.Zero;
+            this.Rotacion = Vector3.Zero;
+            this.Escala = 1.0f;
         }
 
         public void Trasladar(float distancia, char eje)
         {
+            distancia = distancia - ((eje == 'X') ? Posicion.X: (eje == 'Y') ? Posicion.Y: Posicion.Z);
             Matriz.MatrizTraslacion(distancia, eje);
             float[] VectorAuxiliar = new float[3] {0, 0, 0};
             float[] VectorResultante = new float[3] { 0, 0, 0 };
@@ -39,14 +44,15 @@ namespace Graphote
                 Vertices[i] = new Vector3(VectorResultante[0], VectorResultante[1], VectorResultante[2]);
             }
             if (eje == 'X')
-                Posicion.X += distancia;
+                Posicion = new Vector3(Posicion.X+distancia, Posicion.Y, Posicion.Z);
             if (eje == 'Y')
-                Posicion.Y += distancia;
+                Posicion = new Vector3(Posicion.X, Posicion.Y + distancia, Posicion.Z);
             if (eje == 'Z')
-                Posicion.Z += distancia;
+                Posicion = new Vector3(Posicion.X, Posicion.Y, Posicion.Z+distancia);
         }
         public void Rotar(float angulo, char eje)
         {
+            angulo = angulo - ((eje == 'X') ? Rotacion.X : (eje == 'Y') ? Rotacion.Y : Rotacion.Z);
             Matriz.MatrizRotacion(angulo, eje);
             float[] VectorAuxiliar = new float[3] { 0, 0, 0 };
             float[] VectorResultante = new float[3] { 0, 0, 0 };
@@ -56,11 +62,18 @@ namespace Graphote
                 VectorResultante = Matriz.Transformar(VectorAuxiliar);
                 Vertices[i] = new Vector3(VectorResultante[0], VectorResultante[1], VectorResultante[2]);
             }
+
+            if (eje == 'X')
+                Rotacion = new Vector3(Rotacion.X + angulo, Rotacion.Y, Rotacion.Z);
+            if (eje == 'Y')
+                Rotacion = new Vector3(Rotacion.X, Rotacion.Y + angulo, Rotacion.Z);
+            if (eje == 'Z')
+                Rotacion = new Vector3(Rotacion.X, Rotacion.Y, Rotacion.Z + angulo);
         }
 
         public void Escalar(float escala)
         {
-            Matriz.MatrizEscalado(escala);
+            Matriz.MatrizEscalado(escala/this.Escala);
             float[] VectorAuxiliar = new float[3] { 0, 0, 0 };
             float[] VectorResultante = new float[3] { 0, 0, 0 };
             for (int i = 0; i < Vertices.Length; i++)
@@ -69,6 +82,7 @@ namespace Graphote
                 VectorResultante = Matriz.Transformar(VectorAuxiliar);
                 Vertices[i] = new Vector3(VectorResultante[0], VectorResultante[1], VectorResultante[2]);
             }
+            this.Escala = escala;
         }
 
 
