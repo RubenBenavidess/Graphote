@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Graphote.Graficos.ControladoresMat;
+using Graphote.Graficos.Espacio;
+using Graphote.Graficos.Figuras;
+using Graphote.Graficos.Renderizador.Renderizador;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 using System.Windows.Media;
-using System.Windows.Media.Media3D;
+using System.Windows.Media.Imaging;
 
-namespace Graphote
+namespace Graphote.Render.Renderizador
 {
     internal class Renderizador
     {
@@ -45,8 +42,8 @@ namespace Graphote
 
         public void Renderizar(List<FiguraTridimensional> Figuras, Camara Camara)
         {
-            Array.Fill<int>(PixelBuffer, unchecked((int)0xFF000000));
-            Array.Fill<float>(zBuffer, float.MaxValue);
+            Array.Fill(PixelBuffer, unchecked((int)0xFF000000));
+            Array.Fill(zBuffer, float.MaxValue);
 
             // Calcular si la cámara está alineada con un eje principal
             Vector3 direccionCamara = Vector3.Normalize(Vector3.Zero - Camara.Posicion);
@@ -58,9 +55,9 @@ namespace Graphote
             float distanciaCamara = Vector3.Distance(Vector3.Zero, Camara.Posicion);
 
             Matrix4x4 MatrizProyeccionU = isAxisAligned
-                ? 
-                ControladorPerspectiva.CreateOrthographic(distanciaCamara, 
-                    (float)Width / Height, 
+                ?
+                ControladorPerspectiva.CreateOrthographic(20,
+                    (float)Width / Height,
                     0.1f, 100f)
                 : MatrizProyeccion;
 
@@ -83,7 +80,7 @@ namespace Graphote
                     // Aplicar transformaciones del modelo (si existen)
                     Vector3 inicioProyectado = ProyectarVertice(inicio, MatrizVista, MatrizProyeccionU);
                     Vector3 finProyectado = ProyectarVertice(fin, MatrizVista, MatrizProyeccionU);
-                    
+
                     // Dibujar línea con z-buffer
                     DibujarLinea(inicioProyectado, finProyectado, Figura.Color.ToArgb());
                 }
@@ -109,7 +106,8 @@ namespace Graphote
                 DibujarLinea(ejeXInicioProyectado, ejeXFinProyectado, unchecked((int)0xFF8E1919)); // ARGB: Rojo
             }
             // Eje Y (Verde)
-            if (Math.Abs(direccionCamara.Y) <= 0.99f) {
+            if (Math.Abs(direccionCamara.Y) <= 0.99f)
+            {
                 Vector3 ejeYInicio = Vector3.Zero;
                 Vector3 ejeYFin = new Vector3(0, LongitudEje, 0);
                 Vector3 ejeYInicioProyectado = ProyectarVertice(ejeYInicio, MatrizVista, MatrizProyeccion);
@@ -196,7 +194,7 @@ namespace Graphote
         private unsafe void ActualizarRenderTarget()
         {
             RenderTarget.Lock();
-            IntPtr pBackBuffer = RenderTarget.BackBuffer;
+            nint pBackBuffer = RenderTarget.BackBuffer;
             int* pBuffer = (int*)pBackBuffer.ToPointer();
 
             for (int i = 0; i < PixelBuffer.Length; i++)

@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
+﻿using System.Numerics;
 using Color = System.Drawing.Color;
 
-namespace Graphote
+namespace Graphote.Graficos.Figuras
 {
     internal class FabricaFiguras
     {
@@ -127,9 +120,9 @@ namespace Graphote
             // Subdividir los triángulos para mayor precisión
             int numVertices = baseVertices.Length;
             int numAristas = IcosaedroCaras.Length * 3;
-            Vector3[] tempVertices = new Vector3[numVertices * (1 << (subdivisiones * 2))];
+            Vector3[] tempVertices = new Vector3[numVertices * (1 << subdivisiones * 2)];
             Array.Copy(baseVertices, tempVertices, numVertices);
-            (int, int)[] tempAristas = new (int, int)[numAristas * (1 << (subdivisiones * 2))];
+            (int, int)[] tempAristas = new (int, int)[numAristas * (1 << subdivisiones * 2)];
 
             int indiceVertice = numVertices;
             int indiceArista = 0;
@@ -190,9 +183,9 @@ namespace Graphote
 
         private static Color generateColorId()
         {
-            byte r = (byte)(255 - (Id * 10) % 255);
-            byte g = (byte)(255-(Id * 20) % 255);
-            byte b = (byte)(255-(Id * 30) % 255);
+            byte r = (byte)(255 - Id * 10 % 255);
+            byte g = (byte)(255 - Id * 20 % 255);
+            byte b = (byte)(255 - Id * 30 % 255);
             return Color.FromArgb(0xFF, r, g, b);
         }
     }

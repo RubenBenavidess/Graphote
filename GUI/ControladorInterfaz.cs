@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Graphote.Graficos.Figuras;
 using System.Windows;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Media3D;
 using System.Windows.Media.Imaging;
 
-namespace Graphote
+namespace Graphote.GUI
 {
     internal class ControladorInterfaz
     {

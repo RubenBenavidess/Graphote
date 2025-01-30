@@ -1,16 +1,11 @@
-using System.Linq.Expressions;
+using Graphote.Graficos.Espacio;
+using Graphote.Graficos.Figuras;
+using Graphote.GUI;
+using Graphote.Render.Renderizador;
 using System.Numerics;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Media.Media3D;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Point = System.Windows.Point;
 
 namespace Graphote
@@ -20,13 +15,11 @@ namespace Graphote
         List<FiguraTridimensional> Figuras = new List<FiguraTridimensional>();
         Renderizador render;
         FiguraTridimensional? FiguraSeleccionada = null;
-        Vector3[] VerticesOriginalesFigura;
         bool seleccionar = false;
-        
+
 
         public MainWindow()
         {
-            //vista = new VistaTridimensional(pic_canvas.Width, pic_canvas.Height);
             InitializeComponent();
             render = new Renderizador(pic_canvas);
             render.Renderizar(Figuras, pic_canvas.Camara);
@@ -35,66 +28,61 @@ namespace Graphote
             slider_escala.Visibility = Visibility.Hidden;
             lbl_escala_value.Visibility = Visibility.Hidden;
             lblEscala.Visibility = Visibility.Hidden;
-            
         }
 
-    private void lbl_seleccionar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-    {
-      if (!seleccionar)
-      {
-        seleccionar = true;
-        lbl_seleccionar.Background = new SolidColorBrush(
-            (Color)ColorConverter.ConvertFromString("#457B9D")
-        );
-      }
-      else
-      {
-        seleccionar = false;
-        grid_transofrmaciones.Visibility = Visibility.Hidden;
-        slider_escala.Visibility = Visibility.Hidden;
-        lbl_escala_value.Visibility = Visibility.Hidden;
-        lblEscala.Visibility = Visibility.Hidden;
-        lbl_seleccionar.Background = null;
-      }
-
-    }
-
-    private void lbl_seleccionar_reiniciar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-    {
-      Figuras.Clear();
-      render.Renderizar(Figuras, pic_canvas.Camara);
-      image_3D.Source = render.RenderTarget;
-    }
-
-    private void lbl_seleccionar_salir_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-    {
-      this.Close();
-    }
-
-    private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-    {
-      if (FiguraSeleccionada != null)
-      {
-        if (VerticesOriginalesFigura != null)
+        private void lbl_seleccionar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-          FiguraSeleccionada.Vertices = VerticesOriginalesFigura.Select(v => new Vector3(v.X, v.Y, v.Z)).ToArray();
+            if (!seleccionar)
+            {
+                seleccionar = true;
+                lbl_seleccionar.Background = new SolidColorBrush(
+                    (Color)ColorConverter.ConvertFromString("#457B9D")
+                );
+            }
+            else
+            {
+                seleccionar = false;
+                grid_transofrmaciones.Visibility = Visibility.Hidden;
+                slider_escala.Visibility = Visibility.Hidden;
+                lbl_escala_value.Visibility = Visibility.Hidden;
+                lblEscala.Visibility = Visibility.Hidden;
+                lbl_seleccionar.Background = null;
+            }
+
         }
-        FiguraSeleccionada.Escalar((float)e.NewValue);
-        if (lbl_escala_value != null)
-          lbl_escala_value.Content = e.NewValue.ToString("0.00");
-        render.Renderizar(Figuras, pic_canvas.Camara);
-      }
-    }
+
+        private void lbl_seleccionar_reiniciar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Figuras.Clear();
+            render.Renderizar(Figuras, pic_canvas.Camara);
+            image_3D.Source = render.RenderTarget;
+        }
+
+        private void lbl_seleccionar_salir_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (FiguraSeleccionada != null)
+            {
+                FiguraSeleccionada.Escalar((float)e.NewValue);
+                if (lbl_escala_value != null)
+                    lbl_escala_value.Content = e.NewValue.ToString("0.00");
+                render.Renderizar(Figuras, pic_canvas.Camara);
+            }
+        }
 
         private void slider_rotarX_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (FiguraSeleccionada != null)
-            { 
+            {
 
                 if (lbl_valor_rotarX1 != null)
-                  lbl_valor_rotarX1.Content = e.NewValue.ToString("0.00");
+                    lbl_valor_rotarX1.Content = e.NewValue.ToString("0.00");
 
-                FiguraSeleccionada.Rotar((float)e.NewValue, 'X');
+                FiguraSeleccionada.Rotar((float)e.NewValue, 'Z');
                 render.Renderizar(Figuras, pic_canvas.Camara);
                 image_3D.Source = render.RenderTarget;
             }
@@ -106,7 +94,7 @@ namespace Graphote
             {
 
                 if (lbl_valor_rotarY != null)
-                  lbl_valor_rotarY.Content = e.NewValue.ToString("0.00");
+                    lbl_valor_rotarY.Content = e.NewValue.ToString("0.00");
                 FiguraSeleccionada.Rotar((float)e.NewValue, 'Y');
                 render.Renderizar(Figuras, pic_canvas.Camara);
                 image_3D.Source = render.RenderTarget;
@@ -118,9 +106,9 @@ namespace Graphote
             if (FiguraSeleccionada != null)
             {
                 if (lbl_valor_rotarZ != null)
-                  lbl_valor_rotarZ.Content = e.NewValue.ToString("0.00");
+                    lbl_valor_rotarZ.Content = e.NewValue.ToString("0.00");
 
-                FiguraSeleccionada.Rotar((float)e.NewValue, 'Z');
+                FiguraSeleccionada.Rotar((float)e.NewValue, 'X');
                 render.Renderizar(Figuras, pic_canvas.Camara);
                 image_3D.Source = render.RenderTarget;
             }
@@ -129,7 +117,7 @@ namespace Graphote
         private void btn_focusZ_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             float distanciaCamara = Vector3.Distance(Vector3.Zero, pic_canvas.Camara.Posicion);
-            pic_canvas.Camara.Posicion = new Vector3(0,0, distanciaCamara);
+            pic_canvas.Camara.Posicion = new Vector3(0, 0, distanciaCamara);
             render.Renderizar(Figuras, pic_canvas.Camara);
             image_3D.Source = render.RenderTarget;
         }
@@ -142,7 +130,7 @@ namespace Graphote
             render.Renderizar(Figuras, pic_canvas.Camara);
             image_3D.Source = render.RenderTarget;
         }
-        
+
         private void btn_focusY_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             float distanciaCamara = Vector3.Distance(Vector3.Zero, pic_canvas.Camara.Posicion);
@@ -161,78 +149,58 @@ namespace Graphote
             image_3D.Source = render.RenderTarget;
         }
 
-    private void opcion_piramide_MouseDown(object sender, MouseButtonEventArgs e)
-    {
-      FiguraTridimensional piramide = FabricaFiguras.CrearPiramide();
-      Figuras.Add(piramide);
-      grid_figuras.Visibility = Visibility.Hidden;
-      render.Renderizar(Figuras, pic_canvas.Camara);
-      image_3D.Source = render.RenderTarget;
-      lbl_añadir.Background = null;
-    }
-
-    private void opcion_cubo_MouseDown(object sender, MouseButtonEventArgs e)
-    {
-      FiguraTridimensional cubo = FabricaFiguras.CrearCubo();
-      Figuras.Add(cubo);
-      grid_figuras.Visibility = Visibility.Hidden;
-      render.Renderizar(Figuras, pic_canvas.Camara);
-      image_3D.Source = render.RenderTarget;
-      lbl_añadir.Background = null;
-    }
-
-    private void opcion_esfera_MouseDown(object sender, MouseButtonEventArgs e)
-    {
-      FiguraTridimensional esfera = FabricaFiguras.CrearEsfera();
-      Figuras.Add(esfera);
-      grid_figuras.Visibility = Visibility.Hidden;
-      render.Renderizar(Figuras, pic_canvas.Camara);
-      image_3D.Source = render.RenderTarget;
-      lbl_añadir.Background = null;
-    }
-
-    private void lbl_añadir_MouseDown(object sender, MouseButtonEventArgs e)
-    {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-      if (grid_figuras.Visibility == Visibility.Visible)
-      {
-        lbl_añadir.Background = null;
-        grid_figuras.Visibility = Visibility.Hidden;
-      }
-
-      else
-      {
-        grid_figuras.Visibility = Visibility.Visible;
-        lbl_añadir.Background = new SolidColorBrush(
-                  (Color)ColorConverter.ConvertFromString("#457B9D"));
-      }
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-        if (grid_figuras.Visibility == Visibility.Visible)
+        private void opcion_piramide_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            lbl_añadir.Background = null;
+            FiguraTridimensional piramide = FabricaFiguras.CrearPiramide();
+            Figuras.Add(piramide);
             grid_figuras.Visibility = Visibility.Hidden;
+            render.Renderizar(Figuras, pic_canvas.Camara);
+            image_3D.Source = render.RenderTarget;
+            lbl_añadir.Background = null;
         }
 
-        else
+        private void opcion_cubo_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            grid_figuras.Visibility = Visibility.Visible;
-            lbl_añadir.Background = new SolidColorBrush(
-                        (Color)ColorConverter.ConvertFromString("#457B9D"));
+            FiguraTridimensional cubo = FabricaFiguras.CrearCubo();
+            Figuras.Add(cubo);
+            grid_figuras.Visibility = Visibility.Hidden;
+            render.Renderizar(Figuras, pic_canvas.Camara);
+            image_3D.Source = render.RenderTarget;
+            lbl_añadir.Background = null;
         }
->>>>>>> Stashed changes
-    }
+
+        private void opcion_esfera_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            FiguraTridimensional esfera = FabricaFiguras.CrearEsfera();
+            Figuras.Add(esfera);
+            grid_figuras.Visibility = Visibility.Hidden;
+            render.Renderizar(Figuras, pic_canvas.Camara);
+            image_3D.Source = render.RenderTarget;
+            lbl_añadir.Background = null;
+        }
+
+        private void lbl_añadir_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (grid_figuras.Visibility == Visibility.Visible)
+            {
+                lbl_añadir.Background = null;
+                grid_figuras.Visibility = Visibility.Hidden;
+            }
+
+            else
+            {
+                grid_figuras.Visibility = Visibility.Visible;
+                lbl_añadir.Background = new SolidColorBrush(
+                            (Color)ColorConverter.ConvertFromString("#457B9D"));
+            }
+        }
 
         private void pic_canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (seleccionar) {
+            if (seleccionar)
+            {
                 Point posicionClic = e.GetPosition(pic_canvas);
-            
+
                 render.Renderizar(Figuras, pic_canvas.Camara);
 
                 // 2. Obtener figura seleccionada
@@ -254,26 +222,25 @@ namespace Graphote
                     lblEscala.Visibility = Visibility.Visible;
                     lbl_coordenadaX.Content = FiguraSeleccionada.Posicion.X.ToString();
                     lbl_coordenadaY.Content = FiguraSeleccionada.Posicion.Y.ToString();
-                    lbl_coordenadaY.Content = FiguraSeleccionada.Posicion.Z.ToString();
+                    lbl_coordenadaZ.Content = FiguraSeleccionada.Posicion.Z.ToString();
 
-                    VerticesOriginalesFigura = FiguraSeleccionada.Vertices.Select(v => new Vector3(v.X, v.Y, v.Z)).ToArray();
                     // Opcional: Resaltar la figura seleccionada
                 }
             }
         }
 
-    private Point _puntoAnteriorMouse;
-    private bool _estaMoviendoCamara = false;
+        private Point _puntoAnteriorMouse;
+        private bool _estaMoviendoCamara = false;
 
-    private void pic_canvas_MouseMove(object sender, MouseEventArgs e)
-    {
-      if (_estaMoviendoCamara && e.MiddleButton == MouseButtonState.Pressed)
-      {
-        Point posicionActual = e.GetPosition(pic_canvas);
-        Vector2 delta = new Vector2(
-            (float)(posicionActual.X - _puntoAnteriorMouse.X),
-            (float)(posicionActual.Y - _puntoAnteriorMouse.Y)
-        );
+        private void pic_canvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (_estaMoviendoCamara && e.MiddleButton == MouseButtonState.Pressed)
+            {
+                Point posicionActual = e.GetPosition(pic_canvas);
+                Vector2 delta = new Vector2(
+                    (float)(posicionActual.X - _puntoAnteriorMouse.X),
+                    (float)(posicionActual.Y - _puntoAnteriorMouse.Y)
+                );
 
                 float sensibilidad = 0.10f;
                 delta *= sensibilidad;
@@ -311,7 +278,7 @@ namespace Graphote
 
                 _puntoAnteriorMouse = posicionActual;
             }
-            else if(seleccionar)
+            else if (seleccionar)
             {
                 Point posicionClic = e.GetPosition(pic_canvas);
                 // 2. Obtener figura seleccionada
@@ -334,15 +301,15 @@ namespace Graphote
             }
         }
 
-    private void pic_canvas_MouseDown(object sender, MouseButtonEventArgs e)
-    {
-      if (e.MiddleButton == MouseButtonState.Pressed)
-      {
-        _puntoAnteriorMouse = e.GetPosition(pic_canvas);
-        _estaMoviendoCamara = true;
-        pic_canvas.CaptureMouse(); // Capturar el mouse
-      }
-    }
+        private void pic_canvas_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.MiddleButton == MouseButtonState.Pressed)
+            {
+                _puntoAnteriorMouse = e.GetPosition(pic_canvas);
+                _estaMoviendoCamara = true;
+                pic_canvas.CaptureMouse(); // Capturar el mouse
+            }
+        }
 
         private void pic_canvas_MouseUp(object sender, MouseButtonEventArgs e)
         {
@@ -353,118 +320,118 @@ namespace Graphote
             }
         }
 
-    //Pintar opciones del menu de figuras 
-    private void opcion_cilindro_MouseMove(object sender, MouseEventArgs e)
-    {
-      opcion_esfera.Background = null;
-      opcion_cubo.Background = null;
-      opcion_piramide.Background = null;
-      opcion_cilindro.Background = new SolidColorBrush(
-            (Color)ColorConverter.ConvertFromString("#457B9D"));
-    }
+        //Pintar opciones del menu de figuras 
+        private void opcion_cilindro_MouseMove(object sender, MouseEventArgs e)
+        {
+            opcion_esfera.Background = null;
+            opcion_cubo.Background = null;
+            opcion_piramide.Background = null;
+            opcion_cilindro.Background = new SolidColorBrush(
+                  (Color)ColorConverter.ConvertFromString("#457B9D"));
+        }
 
-    private void opcion_piramide_MouseMove(object sender, MouseEventArgs e)
-    {
-      opcion_esfera.Background = null;
-      opcion_cubo.Background = null;
-      opcion_cilindro.Background = null;
-      opcion_piramide.Background = new SolidColorBrush(
-            (Color)ColorConverter.ConvertFromString("#457B9D"));
-    }
+        private void opcion_piramide_MouseMove(object sender, MouseEventArgs e)
+        {
+            opcion_esfera.Background = null;
+            opcion_cubo.Background = null;
+            opcion_cilindro.Background = null;
+            opcion_piramide.Background = new SolidColorBrush(
+                  (Color)ColorConverter.ConvertFromString("#457B9D"));
+        }
 
-    private void opcion_cubo_MouseMove(object sender, MouseEventArgs e)
-    {
-      opcion_esfera.Background = null;
-      opcion_cilindro.Background = null;
-      opcion_piramide.Background = null;
-      opcion_cubo.Background = new SolidColorBrush(
-            (Color)ColorConverter.ConvertFromString("#457B9D"));
-    }
+        private void opcion_cubo_MouseMove(object sender, MouseEventArgs e)
+        {
+            opcion_esfera.Background = null;
+            opcion_cilindro.Background = null;
+            opcion_piramide.Background = null;
+            opcion_cubo.Background = new SolidColorBrush(
+                  (Color)ColorConverter.ConvertFromString("#457B9D"));
+        }
 
-    private void opcion_esfera_MouseMove(object sender, MouseEventArgs e)
-    {
-      opcion_cubo.Background = null;
-      opcion_cilindro.Background = null;
-      opcion_piramide.Background = null;
-      opcion_esfera.Background = new SolidColorBrush(
-            (Color)ColorConverter.ConvertFromString("#457B9D"));
-    }
+        private void opcion_esfera_MouseMove(object sender, MouseEventArgs e)
+        {
+            opcion_cubo.Background = null;
+            opcion_cilindro.Background = null;
+            opcion_piramide.Background = null;
+            opcion_esfera.Background = new SolidColorBrush(
+                  (Color)ColorConverter.ConvertFromString("#457B9D"));
+        }
 
-    // Trasladar la figura con el valor de los txt cuando se pierda el foco
-    private void txt_trasladarX_LostFocus(object sender, RoutedEventArgs e)
-    {
-      validar_texto('X');
-    }
-    private void txt_trasladarY_LostFocus(object sender, RoutedEventArgs e)
-    {
-      validar_texto('Y');
-    }
-    private void txt_trasladarZ_LostFocus(object sender, RoutedEventArgs e)
-    {
-      validar_texto('Y');
-    }
+        // Trasladar la figura con el valor de los txt cuando se pierda el foco
+        private void txt_trasladarX_LostFocus(object sender, RoutedEventArgs e)
+        {
+            validar_texto('X');
+        }
+        private void txt_trasladarY_LostFocus(object sender, RoutedEventArgs e)
+        {
+            validar_texto('Y');
+        }
+        private void txt_trasladarZ_LostFocus(object sender, RoutedEventArgs e)
+        {
+            validar_texto('Y');
+        }
 
-    //Trasladar la figura con el valor de los txt cuando se presione Enter
-    private void txt_trasladarX_KeyDown(object sender, KeyEventArgs e)
-    {
-      if (e.Key == Key.Enter)
-        validar_texto('X');
+        //Trasladar la figura con el valor de los txt cuando se presione Enter
+        private void txt_trasladarX_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                validar_texto('X');
+        }
+
+        private void txt_trasladarY_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                validar_texto('Y');
+        }
+
+        private void txt_trasladarZ_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                validar_texto('Z');
+        }
+
+        // Funcion para validar el texto
+        public void validar_texto(char eje)
+        {
+            float _eje;
+            try
+            {
+                _eje = float.Parse(txt_trasladarX.Text);
+            }
+            catch
+            {
+                MessageBox.Show("Solo números", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            FiguraSeleccionada?.Trasladar(_eje, eje);
+            render.Renderizar(Figuras, pic_canvas.Camara);
+            image_3D.Source = render.RenderTarget;
+
+            lbl_coordenadaX.Content = FiguraSeleccionada?.Posicion.X.ToString();
+            lbl_coordenadaY.Content = FiguraSeleccionada?.Posicion.Y.ToString();
+            lbl_coordenadaZ.Content = FiguraSeleccionada?.Posicion.Z.ToString();
+        }
+        private void ActualizarGridTransformaciones()
+        {
+            if (FiguraSeleccionada != null)
+            {
+                //label escala
+                slider_escala.Value = (double)(FiguraSeleccionada.Escala);
+                lbl_escala_value.Content = slider_escala.Value.ToString();
+
+                //label rotacion
+                slider_rotarX.Value = (double)(FiguraSeleccionada.Rotacion.X);
+                lbl_valor_rotarX1.Content = slider_rotarX.Value.ToString();
+                slider_rotarY.Value = (double)(FiguraSeleccionada.Rotacion.Y);
+                lbl_valor_rotarY.Content = slider_rotarY.Value.ToString();
+                slider_rotarZ.Value = (double)(FiguraSeleccionada.Rotacion.Z);
+                lbl_valor_rotarZ.Content = slider_rotarZ.Value.ToString();
+
+                //valores de traslado
+                txt_trasladarX.Text = FiguraSeleccionada.Posicion.X.ToString();
+                txt_trasladarY.Text = FiguraSeleccionada.Posicion.Y.ToString();
+                txt_trasladarZ.Text = FiguraSeleccionada.Posicion.Z.ToString();
+            }
+        }
     }
-
-    private void txt_trasladarY_KeyDown(object sender, KeyEventArgs e)
-    {
-      if (e.Key == Key.Enter)
-        validar_texto('Y');
-    }
-
-    private void txt_trasladarZ_KeyDown(object sender, KeyEventArgs e)
-    {
-      if (e.Key == Key.Enter)
-        validar_texto('Z');
-    }
-
-    // Funcion para validar el texto
-    public void validar_texto(char eje)
-    {
-      float _eje;
-      try
-      {
-        _eje = float.Parse(txt_trasladarX.Text);
-      }
-      catch
-      {
-        MessageBox.Show("Solo números", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-        return;
-      }
-      FiguraSeleccionada.Trasladar(_eje, eje);
-      render.Renderizar(Figuras, pic_canvas.Camara);
-      image_3D.Source = render.RenderTarget;
-
-      lbl_coordenadaX.Content = FiguraSeleccionada.Posicion.X.ToString();
-      lbl_coordenadaY.Content = FiguraSeleccionada.Posicion.Y.ToString();
-      lbl_coordenadaZ.Content = FiguraSeleccionada.Posicion.Z.ToString();
-    }
-    private void ActualizarGridTransformaciones()
-    {
-      if (FiguraSeleccionada != null)
-      {
-        //label escala
-        slider_escala.Value = (double)(FiguraSeleccionada.Escala);
-        lbl_escala_value.Content = slider_escala.Value.ToString();
-
-        //label rotacion
-        slider_rotarX.Value = (double)(FiguraSeleccionada.Rotacion.X);
-        lbl_valor_rotarX1.Content = slider_rotarX.Value.ToString();
-        slider_rotarY.Value = (double)(FiguraSeleccionada.Rotacion.Y);
-        lbl_valor_rotarY.Content = slider_rotarY.Value.ToString();
-        slider_rotarZ.Value = (double)(FiguraSeleccionada.Rotacion.Z);
-        lbl_valor_rotarZ.Content = slider_rotarZ.Value.ToString();
-
-        //valores de traslado
-        txt_trasladarX.Text = FiguraSeleccionada.Posicion.X.ToString();
-        txt_trasladarY.Text = FiguraSeleccionada.Posicion.Y.ToString();
-        txt_trasladarZ.Text = FiguraSeleccionada.Posicion.Z.ToString();
-      }
-    }
-  }
 }

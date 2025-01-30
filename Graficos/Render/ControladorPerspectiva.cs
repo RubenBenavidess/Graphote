@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Numerics;
 
-namespace Graphote
+namespace Graphote.Graficos.Renderizador.Renderizador
 {
     internal class ControladorPerspectiva
     {
@@ -43,7 +38,7 @@ namespace Graphote
                 f / aspectRatio, 0, 0, 0,
                 0, f, 0, 0,
                 0, 0, (near + far) / range, -1,
-                0, 0, (2 * near * far) / range, 0
+                0, 0, 2 * near * far / range, 0
             );
         }
 

@@ -1,22 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Input;
+using Graphote.Graficos.Espacio;
 
 namespace Graphote
 {
-    internal class VistaTridimensional: Canvas
+    internal class VistaTridimensional : Canvas
     {
         public Camara Camara { get; set; }
 
-        public VistaTridimensional() { 
-            this.Width = 1421;
-            this.Height = 812;
-            this.Camara = new Camara(new Vector3(4, 5, 10));
+        public VistaTridimensional()
+        {
+            Width = 1421;
+            Height = 812;
+            Camara = new Camara(new Vector3(4, 5, 10));
         }
 
 
