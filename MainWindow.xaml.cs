@@ -193,6 +193,7 @@ namespace Graphote
 
     private void lbl_añadir_MouseDown(object sender, MouseButtonEventArgs e)
     {
+<<<<<<< Updated upstream
       if (grid_figuras.Visibility == Visibility.Visible)
       {
         lbl_añadir.Background = null;
@@ -205,6 +206,20 @@ namespace Graphote
         lbl_añadir.Background = new SolidColorBrush(
                   (Color)ColorConverter.ConvertFromString("#457B9D"));
       }
+=======
+        if (grid_figuras.Visibility == Visibility.Visible)
+        {
+            lbl_añadir.Background = null;
+            grid_figuras.Visibility = Visibility.Hidden;
+        }
+
+        else
+        {
+            grid_figuras.Visibility = Visibility.Visible;
+            lbl_añadir.Background = new SolidColorBrush(
+                        (Color)ColorConverter.ConvertFromString("#457B9D"));
+        }
+>>>>>>> Stashed changes
     }
 
         private void pic_canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
